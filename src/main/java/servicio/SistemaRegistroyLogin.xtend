@@ -1,23 +1,22 @@
 package servicio
 
-import ar.edu.unq.epers.model.IUsuario
-import java.util.List
+import home.HomeEnMemoria
+import home.IHome
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.ArrayList
 
 @Accessors
 class SistemaRegistroyLogin {
 	
-	List<IUsuario> usuarios;
+	val IHome home = new HomeEnMemoria 
 	new(){
-		usuarios = new ArrayList<IUsuario>();
+		
 	}
 	
 	/**
 	 * 
 	 */
 	def registrarUsuario (Usuario usuarioNuevo) {
-//		home.existeUsuario(usuarioNuevo.nombreUsuario)
+		home.guardaUsuario(usuarioNuevo)
 	}
 	
 	def ingresarUsuario ( String userName, String password){

@@ -8,21 +8,21 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors 
 class Usuario implements IUsuario {
 	
-	var String nombreUsuario;
-	var String apellidoUsuario;
-	var String nombreDeUsuario;
-	var String emailUsuario;
-	var Date fechaDeNacUsuario;
+	var String nombre;
+	var String apellido;
+	var String idNombre;
+	var String email;
+	var Date fechaDeNacimiento;
 	
 	/**
 	 * Constructor
 	 */
-	new(String nombre,String apellido,String nombreDeUsuario1,String email,Date fechaDeNac){
-		nombreUsuario = nombre;
-		apellidoUsuario = apellido;
-		nombreDeUsuario = nombreDeUsuario1;
-		emailUsuario = email;
-		fechaDeNacUsuario = fechaDeNac; 
+	new(String unNombre,String unApellido,String nombreDeUsuario1,String unEmail,Date fechaDeNac){
+		nombre = unNombre;
+		apellido = unApellido;
+		idNombre = nombreDeUsuario1;
+		email = unEmail;
+		fechaDeNacimiento = fechaDeNac; 
 	}
 	
 		
