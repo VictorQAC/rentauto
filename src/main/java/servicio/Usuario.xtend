@@ -25,8 +25,9 @@ class Usuario implements IUsuario {
 		fechaDeNacUsuario = fechaDeNac; //victor
 	}
 	
-	
-	
+	def sarasa(){
+		
+	}
 	override agregarReserva(Reserva unaReserva) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
