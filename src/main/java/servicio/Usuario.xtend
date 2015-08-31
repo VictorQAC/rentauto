@@ -37,4 +37,6 @@ class Usuario implements IUsuario {
 	}
 
 	
+	// esto lo hizo lucas.
+	
 }
