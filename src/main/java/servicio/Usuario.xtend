@@ -22,7 +22,7 @@ class Usuario implements IUsuario {
 		apellidoUsuario = apellido;
 		nombreDeUsuario = nombreDeUsuario1;
 		emailUsuario = email;
-		fechaDeNacUsuario = fechaDeNac;
+		fechaDeNacUsuario = fechaDeNac; //victor
 	}
 	
 	
