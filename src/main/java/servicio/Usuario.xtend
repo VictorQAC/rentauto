@@ -22,12 +22,10 @@ class Usuario implements IUsuario {
 		apellidoUsuario = apellido;
 		nombreDeUsuario = nombreDeUsuario1;
 		emailUsuario = email;
-		fechaDeNacUsuario = fechaDeNac; //victor
+		fechaDeNacUsuario = fechaDeNac; 
 	}
 	
-	def sarasa(){
 		
-	}
 	override agregarReserva(Reserva unaReserva) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
