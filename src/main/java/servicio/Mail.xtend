@@ -10,7 +10,13 @@ class Mail implements EnviadorDeMails {
 	new(String cuerpo, String asunto, String remitente, String destinatario){
 		
 		body = cuerpo
+		subject = asunto
+		to = destinatario
+		from = remitente
+		}
 		
+		override enviarMail(Mail mail) {
+			throw new UnsupportedOperationException("TODO: auto-generated method stub")
 		}
 		
 	}
