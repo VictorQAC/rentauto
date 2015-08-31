@@ -12,7 +12,7 @@ class Mail implements EnviadorDeMails {
 		body = cuerpo
 		subject = asunto
 		to = destinatario
-		from = remitente
+		from = remitente //prueba
 		}
 		
 		override enviarMail(Mail mail) {
