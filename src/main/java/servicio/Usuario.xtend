@@ -13,4 +13,6 @@ class Usuario implements IUsuario {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
+	// esto lo hizo lucas.
+	
 }
