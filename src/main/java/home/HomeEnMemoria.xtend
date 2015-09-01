@@ -14,7 +14,7 @@ class HomeEnMemoria implements IHome {
 	 * @param usuario = El usuario a persitir en la base de datos.
 	 */
 	override persistirUsuario(Usuario usuario) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		usuarios.add(usuario)
 	}
 
 	/**
@@ -22,7 +22,16 @@ class HomeEnMemoria implements IHome {
 	 * @param nombreDelUsuario = El usuario a recuperar de la base de datos.
 	 */
 	override recuperarUsuario(String nombreUsuario) {
-		usuarios.findFirst[usuario | usuario.nombre == nombreUsuario]
+		usuarios.findFirst[usuario | usuario.idNombre == nombreUsuario]
+	}
+	
+	/**
+	 * Recupera un usuario segun su codigo de validacion en la base de datos.
+	 * @param codigoDeValidacion = El codigo de validacion del usuario
+	 * a recuperar de la base de datos.
+	 */
+	override recuperarUsuarioSegunCodigoDeValidacion(String codigoDeValidacion) {
+		usuarios.findFirst[usuario | usuario.codigoDeValidacion == codigoDeValidacion]
 	}
 
 }

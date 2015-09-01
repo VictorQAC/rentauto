@@ -5,6 +5,7 @@ import Excepciones.UsuarioExisteException
 import Excepciones.UsuarioNoExisteException
 import home.HomeEnMemoria
 import org.eclipse.xtend.lib.annotations.Accessors
+import Excepciones.ValidacionException
 
 @Accessors
 class SistemaRegistroyLogin {
@@ -16,8 +17,25 @@ class SistemaRegistroyLogin {
 	 * @param nombreDeUsuario = El nombre de usuario
 	 * del usuario a recuperar en la base de datos.
 	 */
-	def existeUsuarioEnLaBaseDeDatos(String nombreDeUsuario) {
+	private def existeUsuarioEnLaBaseDeDatos(String nombreDeUsuario) {
 		!(home.recuperarUsuario(nombreDeUsuario) == null)
+	}
+	
+	/**
+	 * Retorna si existe un usuario dado en la base de datos.
+	 * @param nombreDeUsuario = El nombre de usuario
+	 * del usuario a recuperar en la base de datos.
+	 */
+	private def existeUsuarioEnLaBaseDeDatosConCodigoDeValidacion(String codigoDeValidacion) {
+		!(home.recuperarUsuarioSegunCodigoDeValidacion(codigoDeValidacion) == null)
+	}
+	
+	/**
+	 * Genera y asigna un codigo de validacion al usuario.
+	 * @param usuario = El usuario a asignarle un codigo de validacion.
+	 */
+	private def generarCodigoDeValidacionParaUsuario(Usuario usuario){
+		usuario.codigoDeValidacion = "" + (Math.random()*10000)
 	}
 	
 	/**
@@ -41,6 +59,7 @@ class SistemaRegistroyLogin {
 		if (existeUsuarioEnLaBaseDeDatos(usuarioNuevo.idNombre))
 			throw new UsuarioExisteException
 		else
+			generarCodigoDeValidacionParaUsuario(usuarioNuevo)
 			home.persistirUsuario(usuarioNuevo)
 	}
 	
@@ -71,6 +90,19 @@ class SistemaRegistroyLogin {
 			home.recuperarUsuario(userName).password = nuevaPassword
 		else
 			throw new NuevaPasswordInvalidaException
+	}
+	
+	/**
+	 * Valida al usuario perteneciente al codigo de validacion dado.
+	 * @param codigoValidacion = Es el codigo de validacion utilizado para obtener al
+	 * usuario a validar.
+	 * @throws ValidacionException
+	 */
+	def validarCuenta(String codigoValidacion){
+		if(!existeUsuarioEnLaBaseDeDatosConCodigoDeValidacion(codigoValidacion))
+			home.recuperarUsuarioSegunCodigoDeValidacion(codigoValidacion).estadoDeValidacion = true
+		else
+			throw new ValidacionException
 	}
 
 }
