@@ -3,9 +3,17 @@ package home
 import servicio.Usuario
 
 interface IHome {
-	def void guardaUsuario(Usuario us)
-	def Usuario traerUsuario(String nombreUsuario)
-    def boolean existeUsuario(String idNombre)	
-	def void validarCodigo(String string)
-	
+
+	/**
+	 * Guarda un usuario en la base de datos.
+	 * @param usuario = El usuario a persitir en la base de datos.
+	 */
+	def void persistirUsuario(Usuario usuario)
+
+	/**
+	 * Recupera un usuario en la base de datos.
+	 * @param nombreDelUsuario = El usuario a recuperar de la base de datos.
+	 */
+	def Usuario recuperarUsuario(String nombreDelUsuario)
+
 }

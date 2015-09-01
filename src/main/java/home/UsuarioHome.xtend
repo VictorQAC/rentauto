@@ -1,16 +1,17 @@
 package home
 
-import servicio.Usuario
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class UsuarioHome {
-	
-	def getUsuarioConCodigo(String codigo){
-		
-	}
-	
-	def guardarUsuario(Usuario user){
-		
-	}
-	
-	
+
+	var String nombre
+	var String apellido
+	var String idNombre
+	var String password
+	var String email
+	var String fechaDeNacimiento
+	var String codigoDeValidacion
+	var Boolean estadoDeValidacion
+
 }
