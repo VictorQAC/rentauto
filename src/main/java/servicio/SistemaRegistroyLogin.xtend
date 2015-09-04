@@ -35,7 +35,7 @@ class SistemaRegistroyLogin {
 	 * @param usuario = El usuario a asignarle un codigo de validacion.
 	 */
 	private def generarCodigoDeValidacionParaUsuario(Usuario usuario){
-		usuario.codigoDeValidacion = "" + (Math.random()*10000)
+		usuario.codigoDeValidacion = (Math.random()*10000).intValue
 	}
 	
 	/**
@@ -100,7 +100,7 @@ class SistemaRegistroyLogin {
 	 */
 	def validarCuenta(String codigoValidacion){
 		if(!existeUsuarioEnLaBaseDeDatosConCodigoDeValidacion(codigoValidacion))
-			home.recuperarUsuarioSegunCodigoDeValidacion(codigoValidacion).estadoDeValidacion = true
+			home.recuperarUsuarioSegunCodigoDeValidacion(codigoValidacion).estadoDeValidacion = 1
 		else
 			throw new ValidacionException
 	}

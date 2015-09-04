@@ -2,6 +2,7 @@ package servicio
 
 import ar.edu.unq.epers.model.IUsuario
 import ar.edu.unq.epers.model.Reserva
+import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
@@ -18,7 +19,7 @@ class Usuario implements IUsuario {
 	var String email
 	var Date fechaDeNacimiento
 	var Integer codigoDeValidacion
-	var Boolean estadoDeValidacion
+	var Integer estadoDeValidacion
 
 	/**
 	 * Constructor de la clase Usuario.
