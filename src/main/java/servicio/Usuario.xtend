@@ -16,8 +16,8 @@ class Usuario implements IUsuario {
 	var String idNombre
 	var String password
 	var String email
-	var String fechaDeNacimiento
-	var String codigoDeValidacion
+	var Date fechaDeNacimiento
+	var Integer codigoDeValidacion
 	var Boolean estadoDeValidacion
 
 	/**
@@ -29,13 +29,15 @@ class Usuario implements IUsuario {
 	 * @param unaFechaDeNacimiento = Es el fecha de nacimiento que tendra el usuario.
 	 */
 	new(String unNombre, String unApellido, String unNombreDeUsuario,
-			String unEmail, String unaFechaDeNacimiento) {
+			String unEmail,String unPassword, Date unaFechaDeNacimiento) {
 		nombre = unNombre;
 		apellido = unApellido;
 		idNombre = unNombreDeUsuario;
+		password = unPassword;
 		email = unEmail;
 		fechaDeNacimiento = unaFechaDeNacimiento;
-		estadoDeValidacion = false
+		codigoDeValidacion = null;
+		estadoDeValidacion = 0;
 	}
 
 	override agregarReserva(Reserva unaReserva) {
