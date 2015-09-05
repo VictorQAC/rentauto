@@ -15,6 +15,7 @@ class Mail implements EnviadorDeMails {
 		from = remitente //prueba
 		}
 		
+	new(){}
 		override enviarMail(Mail mail) {
 			throw new UnsupportedOperationException("TODO: auto-generated method stub")
 		}

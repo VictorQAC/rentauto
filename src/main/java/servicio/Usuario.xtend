@@ -18,7 +18,7 @@ class Usuario implements IUsuario {
 	var String password
 	var String email
 	var Date fechaDeNacimiento
-	var Integer codigoDeValidacion
+	var String codigoDeValidacion
 	var Boolean estadoDeValidacion
 
 	/**

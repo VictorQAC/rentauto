@@ -11,32 +11,20 @@ import home.UsuarioHome
 @Accessors
 class SistemaRegistroyLogin {
 
-	val UsuarioHome uh = new UsuarioHome
-
-	/**
-	 * Retorna si existe un usuario dado en la base de datos.
-	 * @param nombreDeUsuario = El nombre de usuario
-	 * del usuario a recuperar en la base de datos.
-	 */
-	private def existeUsuarioEnLaBaseDeDatos(String nombreDeUsuario) {
-		!(uh.recuperarUsuario(nombreDeUsuario) == null)
-	}
+	val UsuarioHome uh 
+	val EnviadorDeMails em
 	
-	/**
-	 * Retorna si existe un usuario dado en la base de datos.
-	 * @param nombreDeUsuario = El nombre de usuario
-	 * del usuario a recuperar en la base de datos.
-	 */
-	private def existeUsuarioEnLaBaseDeDatosConCodigoDeValidacion(String codigoDeValidacion) {
-		!(uh.recuperarUsuarioSegunCodigoDeValidacion(codigoDeValidacion) == null)
+	new(){
+		uh = new UsuarioHome
+		em = new Mail
 	}
 	
 	/**
 	 * Genera y asigna un codigo de validacion al usuario.
 	 * @param usuario = El usuario a asignarle un codigo de validacion.
 	 */
-	private def generarCodigoDeValidacionParaUsuario(Usuario usuario){
-		usuario.codigoDeValidacion = (Math.random()*10000).intValue
+	private def generarCodigoDeValidacionParaUsuario(){
+		return (Math.random()*10000).toString
 	}
 	
 	/**
@@ -57,34 +45,12 @@ class SistemaRegistroyLogin {
 	 * @throws UsuarioNoExisteException
 	 */
 	def ingresarUsuario(String userName, String password) {
-		if (existeUsuarioEnLaBaseDeDatos(userName) && 
+		if (//existeUsuarioEnLaBaseDeDatos(userName) && 
 			comprobarPassword(userName, password))
 			uh.recuperarUsuario(userName)
 		else
 			throw new UsuarioNoExisteException
 	}
-	
-	/**
-	 * Cambia el password del usuario dado siempre y cuando la el nuevo password
-	 * sea diferente al password anterior.
-	 * @param userName = Es el nombre de ususario.
-	 * @param password = Es el password el usuario.
-	 * @param nuevaPassword = Es el nuevo password a persistir.
-	 * @throws NuevaPasswordInvalidaException
-	 */
-	def cambiarPassword(String userName, String password, String nuevaPassword){
-		if(password != nuevaPassword)
-			uh.recuperarUsuario(userName).password = nuevaPassword
-		else
-			throw new NuevaPasswordInvalidaException
-	}
-	
-	/**
-	 * Valida al usuario perteneciente al codigo de validacion dado.
-	 * @param codigoValidacion = Es el codigo de validacion utilizado para obtener al
-	 * usuario a validar.
-	 * @throws ValidacionException
-	 */
 	 
 	 
 	///// esto es lo nuevo ///////////////////////
@@ -112,20 +78,33 @@ class SistemaRegistroyLogin {
 	 * @throws UsuarioExisteException
 	 */
 	def registrarUsuario(Usuario usuarioNuevo) {
-		
-		if (uh.existeUsuario(usuarioNuevo))
+		var String cdv
+		if (this.uh.existeUsuario(usuarioNuevo))
 			throw new UsuarioExisteException
 		else{
-			this.generarCodigoDeValidacionParaUsuario(usuarioNuevo)
+			cdv = this.generarCodigoDeValidacionParaUsuario()
+			usuarioNuevo.codigoDeValidacion = cdv
 			this.uh.guardar(usuarioNuevo)
 		}
+		
+		val Mail mailConCodValidacion = new Mail (cdv,"Codigo De Validacion",
+											"Sistema Administrador",usuarioNuevo.idNombre)
+		em.enviarMail(mailConCodValidacion)
 	}
 	
+	/**
+	 * Cambia el password del usuario dado siempre y cuando la el nuevo password
+	 * sea diferente al password anterior.
+	 * @param userName = Es el nombre de ususario.
+	 * @param password = Es el password el usuario.
+	 * @param nuevaPassword = Es el nuevo password a persistir.
+	 * @throws NuevaPasswordInvalidaException
+	 */
+	def cambiarPassword(String idNombre, String password, String nuevaPassword){
+		if(password != nuevaPassword)
+			uh.actualizarPassword(idNombre,nuevaPassword)
+		else
+			throw new NuevaPasswordInvalidaException
+	}
 	
-	
-	
-	
-	
-	
-
 }

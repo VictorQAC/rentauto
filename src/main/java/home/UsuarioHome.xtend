@@ -82,7 +82,7 @@ class UsuarioHome implements IHome {
 				res.password = rs.getString("PASSWORD")
 				res.email = rs.getString("EMAIL")
 				res.fechaDeNacimiento = rs.getDate("FECHADENACIMIENTO")
-				res.codigoDeValidacion = rs.getInt("CODIGODEVALIDACION")
+				res.codigoDeValidacion = rs.getString("CODIGODEVALIDACION")
 				res.estadoDeValidacion = rs.getBoolean("ESTADODEVALIDACION")
 				return res
         	}
@@ -146,5 +146,23 @@ class UsuarioHome implements IHome {
 				conn.close();
 		}
 	}
+	
+	def actualizarPassword(String idNombre, String nuevaPassword) {
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		try {
+			conn = this.getConnection();
+			ps = conn.prepareStatement("UPDATE USUARIO SET PASSWORD = ? WHERE IDNOMBRE = ?")
+			ps.setString(5,idNombre)
+			ps.setString(4,nuevaPassword)
+			ps.executeQuery()
+		}finally {
+			if (ps != null)
+				ps.close();
+			if (conn != null)
+				conn.close();
+		}
+	}
+	
 
 }
