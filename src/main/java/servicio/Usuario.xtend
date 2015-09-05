@@ -19,7 +19,7 @@ class Usuario implements IUsuario {
 	var String email
 	var Date fechaDeNacimiento
 	var Integer codigoDeValidacion
-	var Integer estadoDeValidacion
+	var Boolean estadoDeValidacion
 
 	/**
 	 * Constructor de la clase Usuario.
@@ -29,6 +29,8 @@ class Usuario implements IUsuario {
 	 * @param unEmail = Es el email que tendra el usuario.
 	 * @param unaFechaDeNacimiento = Es el fecha de nacimiento que tendra el usuario.
 	 */
+	 new(){}
+	 
 	new(String unNombre, String unApellido, String unNombreDeUsuario,
 			String unEmail,String unPassword, Date unaFechaDeNacimiento) {
 		nombre = unNombre;
@@ -38,8 +40,9 @@ class Usuario implements IUsuario {
 		email = unEmail;
 		fechaDeNacimiento = unaFechaDeNacimiento;
 		codigoDeValidacion = null;
-		estadoDeValidacion = 0;
+		estadoDeValidacion = false;
 	}
+	
 
 	override agregarReserva(Reserva unaReserva) {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
@@ -47,6 +50,10 @@ class Usuario implements IUsuario {
 
 	override getReservas() {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	def validar() {
+		this.estadoDeValidacion = true
 	}
 
 }

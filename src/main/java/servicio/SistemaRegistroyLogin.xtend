@@ -6,11 +6,12 @@ import Excepciones.UsuarioNoExisteException
 import home.HomeEnMemoria
 import org.eclipse.xtend.lib.annotations.Accessors
 import Excepciones.ValidacionException
+import home.UsuarioHome
 
 @Accessors
 class SistemaRegistroyLogin {
 
-	val HomeEnMemoria home = new HomeEnMemoria
+	val UsuarioHome uh = new UsuarioHome
 
 	/**
 	 * Retorna si existe un usuario dado en la base de datos.
@@ -18,7 +19,7 @@ class SistemaRegistroyLogin {
 	 * del usuario a recuperar en la base de datos.
 	 */
 	private def existeUsuarioEnLaBaseDeDatos(String nombreDeUsuario) {
-		!(home.recuperarUsuario(nombreDeUsuario) == null)
+		!(uh.recuperarUsuario(nombreDeUsuario) == null)
 	}
 	
 	/**
@@ -27,7 +28,7 @@ class SistemaRegistroyLogin {
 	 * del usuario a recuperar en la base de datos.
 	 */
 	private def existeUsuarioEnLaBaseDeDatosConCodigoDeValidacion(String codigoDeValidacion) {
-		!(home.recuperarUsuarioSegunCodigoDeValidacion(codigoDeValidacion) == null)
+		!(uh.recuperarUsuarioSegunCodigoDeValidacion(codigoDeValidacion) == null)
 	}
 	
 	/**
@@ -46,21 +47,7 @@ class SistemaRegistroyLogin {
 	 * password del usuario.
 	 */
 	def comprobarPassword(String userName, String password) {
-		home.recuperarUsuario(userName).password == password
-	}
-
-	/**
-	 * Persiste el usuario a la base de datos si este no estaba persitido
-	 * con anterioridad en la base de datos.
-	 * @param usuarioNuevo = El usuario a persistir en la base de datos.
-	 * @throws UsuarioExisteException
-	 */
-	def registrarUsuario(Usuario usuarioNuevo) {
-		if (existeUsuarioEnLaBaseDeDatos(usuarioNuevo.idNombre))
-			throw new UsuarioExisteException
-		else
-			generarCodigoDeValidacionParaUsuario(usuarioNuevo)
-			home.persistirUsuario(usuarioNuevo)
+		uh.recuperarUsuario(userName).password == password
 	}
 	
 	/**
@@ -72,7 +59,7 @@ class SistemaRegistroyLogin {
 	def ingresarUsuario(String userName, String password) {
 		if (existeUsuarioEnLaBaseDeDatos(userName) && 
 			comprobarPassword(userName, password))
-			home.recuperarUsuario(userName)
+			uh.recuperarUsuario(userName)
 		else
 			throw new UsuarioNoExisteException
 	}
@@ -87,7 +74,7 @@ class SistemaRegistroyLogin {
 	 */
 	def cambiarPassword(String userName, String password, String nuevaPassword){
 		if(password != nuevaPassword)
-			home.recuperarUsuario(userName).password = nuevaPassword
+			uh.recuperarUsuario(userName).password = nuevaPassword
 		else
 			throw new NuevaPasswordInvalidaException
 	}
@@ -98,11 +85,47 @@ class SistemaRegistroyLogin {
 	 * usuario a validar.
 	 * @throws ValidacionException
 	 */
+	 
+	 
+	///// esto es lo nuevo ///////////////////////
+	 
+	 /**
+	 * Valida al usuario perteneciente al codigo de validacion dado.
+	 * @param codigoValidacion = Es el codigo de validacion utilizado para obtener al
+	 * usuario a validar.
+	 * @throws ValidacionException
+	 */
+	 
 	def validarCuenta(String codigoValidacion){
-		if(!existeUsuarioEnLaBaseDeDatosConCodigoDeValidacion(codigoValidacion))
-			home.recuperarUsuarioSegunCodigoDeValidacion(codigoValidacion).estadoDeValidacion = 1
-		else
+		val Usuario user = uh.getUsuarioPorCodigoDeValidacion(codigoValidacion)
+		if(user == null)
 			throw new ValidacionException
+		user.validar()
+		this.uh.guardar(user)
 	}
+	
+	
+	/**
+	 * Persiste el usuario a la base de datos si este no estaba persitido
+	 * con anterioridad en la base de datos.
+	 * @param usuarioNuevo = El usuario a persistir en la base de datos.
+	 * @throws UsuarioExisteException
+	 */
+	def registrarUsuario(Usuario usuarioNuevo) {
+		
+		if (uh.existeUsuario(usuarioNuevo))
+			throw new UsuarioExisteException
+		else{
+			this.generarCodigoDeValidacionParaUsuario(usuarioNuevo)
+			this.uh.guardar(usuarioNuevo)
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }
