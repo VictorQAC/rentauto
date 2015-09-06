@@ -26,32 +26,6 @@ class SistemaRegistroyLogin {
 	private def generarCodigoDeValidacionParaUsuario(){
 		return (Math.random()*10000).toString
 	}
-	
-	/**
-	 * Retorna si el password es el correcto.
-	 * @param userName = Es el nombre del usuario del cual se verificara el
-	 * password.
-	 * @param password = Es el password que se usara para compararlo con el
-	 * password del usuario.
-	 */
-	def comprobarPassword(String userName, String password) {
-		uh.recuperarUsuario(userName).password == password
-	}
-	
-	/**
-	 * Retorna el usuario una vez ingresado correctamente sus datos.
-	 * @param userName = Es el nombre de ususario.
-	 * @param password = Es el password el usuario.
-	 * @throws UsuarioNoExisteException
-	 */
-	def ingresarUsuario(String userName, String password) {
-		if (//existeUsuarioEnLaBaseDeDatos(userName) && 
-			comprobarPassword(userName, password))
-			uh.recuperarUsuario(userName)
-		else
-			throw new UsuarioNoExisteException
-	}
-	 
 	 
 	///// esto es lo nuevo ///////////////////////
 	 
@@ -79,7 +53,7 @@ class SistemaRegistroyLogin {
 	 */
 	def registrarUsuario(Usuario usuarioNuevo) {
 		var String cdv
-		if (this.uh.existeUsuario(usuarioNuevo))
+		if (this.uh.existeUsuario(usuarioNuevo.idNombre))
 			throw new UsuarioExisteException
 		else{
 			cdv = this.generarCodigoDeValidacionParaUsuario()
@@ -107,4 +81,16 @@ class SistemaRegistroyLogin {
 			throw new NuevaPasswordInvalidaException
 	}
 	
+	/**
+	 * Retorna el usuario una vez ingresado correctamente sus datos.
+	 * @param userName = Es el nombre de ususario.
+	 * @param password = Es el password el usuario.
+	 * @throws UsuarioNoExisteException
+	 */
+	def ingresarUsuario(String idName, String password) {
+		if (!this.uh.existeUsuario(idName))
+			this.uh.loguearse(idName,password)
+		else
+			throw new UsuarioNoExisteException
+	}
 }

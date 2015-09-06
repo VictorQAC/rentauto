@@ -7,61 +7,14 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import servicio.Usuario
 
 @Accessors
-class UsuarioHome implements IHome {
-
-	var String nombre
-	var String apellido
-	var String idNombre
-	var String password
-	var String email
-	var String fechaDeNacimiento
-	var String codigoDeValidacion
-	var Integer estadoDeValidacion
-
-	override recuperarUsuario(String nombreDelUsuario) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
-	override recuperarUsuarioSegunCodigoDeValidacion(String codigoDeValidacion) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
-	override void persistirUsuario(Usuario usuario) {
-		var Connection conn = null;
-		var PreparedStatement ps = null;
-
-		try {
-			conn = this.getConnection();
-			ps = conn.
-				prepareStatement(
-					"INSERT INTO usuario (NOMBRE, APELLIDO,IDNOMBRE,PASSWORD,EMAIL,FECHADENACIMIENTO,CODIGODEVALIDACION,ESTADODEVALIDACION) VALUES (?,?)"
-				);
-			ps.setString(1, "usuario.nombre");
-			ps.setString(2, "usuario.apellido");
-			ps.setString(3, "usuario.idNombre");
-			ps.setString(4, "usuario.password");
-			ps.setString(5, "usuario.email");
-			ps.setString(6, "usuario.fechaDeNacimiento");
-			ps.setString(7, "usuario.codigoDeValidacion");
-			ps.setString(8, "usuario.estadoDeValidacion");
-			ps.execute();
-
-			ps.close();
-		} finally {
-			if (ps != null)
-				ps.close();
-			if (conn != null)
-				conn.close();
-		}
-	}
-
+class UsuarioHome {
+	new(){}
+	
 	private def Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password=root");
+		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=&password=root");
 
 	}
-	
-	
 	
 	////////////////////////// aca esta lo nuevo /////////////
 	
@@ -105,7 +58,8 @@ class UsuarioHome implements IHome {
 			conn = this.getConnection();
 			ps = conn.
 				prepareStatement(
-					"INSERT INTO USUARIO (NOMBRE, APELLIDO,IDNOMBRE,PASSWORD,EMAIL,FECHADENACIMIENTO,CODIGODEVALIDACION,ESTADODEVALIDACION) VALUES (?,?)"
+					"INSERT INTO USUARIO (NOMBRE, APELLIDO,IDNOMBRE,
+						PASSWORD,EMAIL,FECHADENACIMIENTO,CODIGODEVALIDACION,ESTADODEVALIDACION) VALUES (?,?)"
 				);
 			ps.setString(1, "usuario.nombre");
 			ps.setString(2, "usuario.apellido");
@@ -125,14 +79,14 @@ class UsuarioHome implements IHome {
 		}
 	}
 	
-	def existeUsuario(Usuario usuario) {
+	def existeUsuario(String idNombre) {
 		var String idUsuario
 		var Connection conn = null;
 		var PreparedStatement ps = null;
 		try {
 			conn = this.getConnection();
 			ps = conn.prepareStatement("SELECT * FROM  USUARIO WHERE IDNOMBRE = ? ")
-			ps.setString(3,usuario.idNombre);
+			ps.setString(3,idNombre);
 			val rs = ps.executeQuery()
 		
 			if (rs.next()) {
@@ -162,6 +116,27 @@ class UsuarioHome implements IHome {
 			if (conn != null)
 				conn.close();
 		}
+	}
+	
+	def loguearse(String idName, String password) {
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		try {
+			conn = this.getConnection();
+			ps = conn.prepareStatement("SELECT NOMBRE, APELLIDO,IDNOMBRE,PASSWORD,EMAIL
+							,FECHADENACIMIENTO,CODIGODEVALIDACION,ESTADODEVALIDACION
+								FROM USUARIO WHERE IDNOMBRE = ? AND PASSWORD = ?")
+			ps.setString(3,idName)
+			ps.setString(4,password)
+			var rs =ps.executeQuery()
+			return rs.next()						
+		}finally {
+			if (ps != null)
+				ps.close();
+			if (conn != null)
+				conn.close();
+		}
+		
 	}
 	
 
