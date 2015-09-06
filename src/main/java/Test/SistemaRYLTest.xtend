@@ -12,7 +12,8 @@ class SistemaRYLTest {
 		var Usuario u = new Usuario("pepe","grillo","pgrillo",
 				"pgrillo@hotmail.com","123", null)
 		sistema.registrarUsuario(u)
-		Assert.assertTrue(sistema.ingresarUsuario("pgrillo","123"))
+		Assert.assertTrue(sistema.ingresarUsuario("pgrillo","123"))  
+		//no funca
 		
 	}
 }
