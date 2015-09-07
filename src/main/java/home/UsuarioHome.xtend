@@ -5,6 +5,7 @@ import java.sql.DriverManager
 import java.sql.PreparedStatement
 import org.eclipse.xtend.lib.annotations.Accessors
 import servicio.Usuario
+import java.sql.ResultSet
 
 @Accessors
 class UsuarioHome {
@@ -12,8 +13,7 @@ class UsuarioHome {
 	
 	private def Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=&password=root");
-
+		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password=");
 	}
 	
 	////////////////////////// aca esta lo nuevo /////////////
@@ -61,16 +61,16 @@ class UsuarioHome {
 					"INSERT INTO USUARIO (NOMBRE, APELLIDO,IDNOMBRE,
 						PASSWORD,EMAIL,FECHADENACIMIENTO,CODIGODEVALIDACION,ESTADODEVALIDACION) VALUES (?,?)"
 				);
-			ps.setString(1, "usuario.nombre");
-			ps.setString(2, "usuario.apellido");
-			ps.setString(3, "usuario.idNombre");
-			ps.setString(4, "usuario.password");
-			ps.setString(5, "usuario.email");
-			ps.setString(6, "usuario.fechaDeNacimiento");
-			ps.setString(7, "usuario.codigoDeValidacion");
-			ps.setString(8, "usuario.estadoDeValidacion");
-		
+			ps.setString(1, usuario.nombre);
+			ps.setString(2, usuario.apellido);
+			ps.setString(3, usuario.idNombre);
+			ps.setString(4, usuario.password);
+			ps.setString(5, usuario.email);
+			ps.setDate(6, usuario.fechaDeNacimiento);
+			ps.setString(7, usuario.codigoDeValidacion);
+			ps.setBoolean(8, usuario.estadoDeValidacion);
 			ps.executeQuery();
+			
 		}finally {
 			if (ps != null)
 				ps.close();
@@ -85,9 +85,9 @@ class UsuarioHome {
 		var PreparedStatement ps = null;
 		try {
 			conn = this.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM  USUARIO WHERE IDNOMBRE = ? ")
+			ps = conn.prepareStatement("SELECT IDNOMBRE FROM USUARIO WHERE IDNOMBRE = ? ")
 			ps.setString(3,idNombre);
-			val rs = ps.executeQuery()
+			val ResultSet rs = ps.executeQuery()
 		
 			if (rs.next()) {
 				idUsuario = rs.getString("IDNOMBRE")
@@ -128,7 +128,7 @@ class UsuarioHome {
 								FROM USUARIO WHERE IDNOMBRE = ? AND PASSWORD = ?")
 			ps.setString(3,idName)
 			ps.setString(4,password)
-			var rs =ps.executeQuery()
+			var ResultSet rs =ps.executeQuery()
 			return rs.next()						
 		}finally {
 			if (ps != null)

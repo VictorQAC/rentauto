@@ -3,7 +3,6 @@ package servicio
 import Excepciones.NuevaPasswordInvalidaException
 import Excepciones.UsuarioExisteException
 import Excepciones.UsuarioNoExisteException
-import home.HomeEnMemoria
 import org.eclipse.xtend.lib.annotations.Accessors
 import Excepciones.ValidacionException
 import home.UsuarioHome
@@ -12,7 +11,7 @@ import home.UsuarioHome
 class SistemaRegistroyLogin {
 
 	val UsuarioHome uh 
-	val EnviadorDeMails em
+	val EnviadorDeMails em 
 	
 	new(){
 		uh = new UsuarioHome
@@ -23,7 +22,7 @@ class SistemaRegistroyLogin {
 	 * Genera y asigna un codigo de validacion al usuario.
 	 * @param usuario = El usuario a asignarle un codigo de validacion.
 	 */
-	private def generarCodigoDeValidacionParaUsuario(){
+	def generarCodigoDeValidacionParaUsuario(){
 		return (Math.random()*10000).toString
 	}
 	 
@@ -88,8 +87,10 @@ class SistemaRegistroyLogin {
 	 * @throws UsuarioNoExisteException
 	 */
 	def ingresarUsuario(String idName, String password) {
-		if (!this.uh.existeUsuario(idName))
-			this.uh.loguearse(idName,password)
+		if (this.uh.existeUsuario(idName)){
+			val Boolean res = this.uh.loguearse(idName,password)
+			return res	
+		}
 		else
 			throw new UsuarioNoExisteException
 	}

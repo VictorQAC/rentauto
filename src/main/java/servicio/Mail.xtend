@@ -1,6 +1,6 @@
 package servicio
 
-class Mail implements EnviadorDeMails {
+class Mail implements EnviadorDeMails{
 	
 	var String body
 	var String subject
@@ -12,12 +12,13 @@ class Mail implements EnviadorDeMails {
 		body = cuerpo
 		subject = asunto
 		to = destinatario
-		from = remitente //prueba
-		}
+		from = remitente
+	}
 		
 	new(){}
-		override enviarMail(Mail mail) {
-			throw new UnsupportedOperationException("TODO: auto-generated method stub")
-		}
+	
+	override enviarMail(Mail mail) {
 		
-	}
+	}	
+		
+}
