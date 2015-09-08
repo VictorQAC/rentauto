@@ -24,7 +24,7 @@ class UsuarioHome {
 		try {
 			conn = this.getConnection();
 			ps = conn.prepareStatement("SELECT * FROM  USUARIO WHERE CODIGODEVALIDACION = ? ")
-			ps.setString(7,codigoValidacion);
+			ps.setString(1,codigoValidacion);
 			val rs = ps.executeQuery()
 		
 			if (rs.next()) {
@@ -59,7 +59,7 @@ class UsuarioHome {
 			ps = conn.
 				prepareStatement(
 					"INSERT INTO USUARIO (NOMBRE, APELLIDO,IDNOMBRE,
-						PASSWORD,EMAIL,FECHADENACIMIENTO,CODIGODEVALIDACION,ESTADODEVALIDACION) VALUES (?,?)"
+						PASSWORD,EMAIL,FECHADENACIMIENTO,CODIGODEVALIDACION,ESTADODEVALIDACION) VALUES (?,?,?,?,?,?,?,?)"
 				);
 			ps.setString(1, usuario.nombre);
 			ps.setString(2, usuario.apellido);
@@ -69,7 +69,7 @@ class UsuarioHome {
 			ps.setDate(6, usuario.fechaDeNacimiento);
 			ps.setString(7, usuario.codigoDeValidacion);
 			ps.setBoolean(8, usuario.estadoDeValidacion);
-			ps.executeQuery();
+			ps.executeUpdate();
 			
 		}finally {
 			if (ps != null)
@@ -86,7 +86,7 @@ class UsuarioHome {
 		try {
 			conn = this.getConnection();
 			ps = conn.prepareStatement("SELECT IDNOMBRE FROM USUARIO WHERE IDNOMBRE = ? ")
-			ps.setString(3,idNombre);
+			ps.setString(1,idNombre);
 			val ResultSet rs = ps.executeQuery()
 		
 			if (rs.next()) {
@@ -107,9 +107,9 @@ class UsuarioHome {
 		try {
 			conn = this.getConnection();
 			ps = conn.prepareStatement("UPDATE USUARIO SET PASSWORD = ? WHERE IDNOMBRE = ?")
-			ps.setString(5,idNombre)
-			ps.setString(4,nuevaPassword)
-			ps.executeQuery()
+			ps.setString(1,nuevaPassword)
+			ps.setString(2,idNombre)
+			ps.executeUpdate()
 		}finally {
 			if (ps != null)
 				ps.close();
@@ -123,11 +123,10 @@ class UsuarioHome {
 		var PreparedStatement ps = null;
 		try {
 			conn = this.getConnection();
-			ps = conn.prepareStatement("SELECT NOMBRE, APELLIDO,IDNOMBRE,PASSWORD,EMAIL
-							,FECHADENACIMIENTO,CODIGODEVALIDACION,ESTADODEVALIDACION
+			ps = conn.prepareStatement("SELECT *
 								FROM USUARIO WHERE IDNOMBRE = ? AND PASSWORD = ?")
-			ps.setString(3,idName)
-			ps.setString(4,password)
+			ps.setString(1,idName)
+			ps.setString(2,password)
 			var ResultSet rs =ps.executeQuery()
 			return rs.next()						
 		}finally {
@@ -139,5 +138,63 @@ class UsuarioHome {
 		
 	}
 	
-
-}
+	def getPassword(String idNombre) {
+		var String pass;
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		try {
+			conn = this.getConnection();
+			ps = conn.prepareStatement("SELECT PASSWORD FROM USUARIO WHERE IDNOMBRE= ? ")
+			ps.setString(1,idNombre);
+			var ResultSet rs = ps.executeQuery()
+			
+			if(rs.next()){
+				pass = rs.getString("PASSWORD")
+				return pass
+			}
+			else
+				return "no tiene password"
+				
+		}finally {
+			if (ps != null)
+				ps.close();
+			if (conn != null)
+				conn.close();
+		}
+	}
+	
+      def void borrarDatos(){
+      	
+      	var Connection conn = null;
+		var PreparedStatement ps = null;
+		try {
+			conn = this.getConnection();
+			ps = conn.prepareStatement("DELETE FROM USUARIO")
+			ps.executeUpdate();
+      	
+      }finally {
+			if (ps != null)
+				ps.close();
+			if (conn != null)
+				conn.close();
+		}
+	}
+	
+	def actualizarValidacion(String idNombre, boolean estadoValidacion) {
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		try {
+			conn = this.getConnection();
+			ps = conn.prepareStatement("UPDATE USUARIO SET ESTADODEVALIDACION = ? WHERE IDNOMBRE = ?")
+			ps.setBoolean(1,estadoValidacion)
+			ps.setString(2,idNombre)
+			ps.executeUpdate()
+		}finally {
+			if (ps != null)
+				ps.close();
+			if (conn != null)
+				conn.close();
+		}
+			}
+	}
+      

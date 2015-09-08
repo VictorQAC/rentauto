@@ -10,8 +10,8 @@ import home.UsuarioHome
 @Accessors
 class SistemaRegistroyLogin {
 
-	val UsuarioHome uh 
-	val EnviadorDeMails em 
+	var UsuarioHome uh 
+	var EnviadorDeMails em 
 	
 	new(){
 		uh = new UsuarioHome
@@ -35,12 +35,15 @@ class SistemaRegistroyLogin {
 	 * @throws ValidacionException
 	 */
 	 
-	def validarCuenta(String codigoValidacion){
-		val Usuario user = uh.getUsuarioPorCodigoDeValidacion(codigoValidacion)
-		if(user == null)
+	def void validarCuenta(String codigoValidacion){
+		var Usuario user = uh.getUsuarioPorCodigoDeValidacion(codigoValidacion)
+		if(user == null){
 			throw new ValidacionException
-		user.validar()
-		this.uh.guardar(user)
+		}
+			else{
+				user.validar()
+				this.uh.actualizarValidacion(user.idNombre,true)
+			}
 	}
 	
 	
@@ -52,7 +55,7 @@ class SistemaRegistroyLogin {
 	 */
 	def registrarUsuario(Usuario usuarioNuevo) {
 		var String cdv
-		if (this.uh.existeUsuario(usuarioNuevo.idNombre))
+		if (this.usuarioExistente(usuarioNuevo.idNombre))
 			throw new UsuarioExisteException
 		else{
 			cdv = this.generarCodigoDeValidacionParaUsuario()
@@ -80,14 +83,22 @@ class SistemaRegistroyLogin {
 			throw new NuevaPasswordInvalidaException
 	}
 	
+	def void borrarHome(){
+		uh.borrarDatos()
+	}
+	
+	def usuarioExistente(String idNombre){
+		return this.uh.existeUsuario(idNombre)
+	}
+	
 	/**
-	 * Retorna el usuario una vez ingresado correctamente sus datos.
+	 * Retorna true si el usuario ingreso correctamente sus datos.
 	 * @param userName = Es el nombre de ususario.
 	 * @param password = Es el password el usuario.
 	 * @throws UsuarioNoExisteException
 	 */
 	def ingresarUsuario(String idName, String password) {
-		if (this.uh.existeUsuario(idName)){
+		if (this.usuarioExistente(idName)){
 			val Boolean res = this.uh.loguearse(idName,password)
 			return res	
 		}

@@ -21,6 +21,7 @@ class Usuario implements IUsuario {
 	var String codigoDeValidacion
 	var Boolean estadoDeValidacion
 
+
 	/**
 	 * Constructor de la clase Usuario.
 	 * @param unNombre = Es el nombre que tendra el usuario.
