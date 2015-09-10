@@ -7,9 +7,10 @@ import java.sql.Date
 import servicio.Usuario
 import servicio.SistemaRegistroyLogin
 import org.junit.Before
-import static org.mockito.Mockito.*;
 import Excepciones.UsuarioExisteException
 import Excepciones.UsuarioNoExisteException
+import Excepciones.NuevaPasswordInvalidaException
+import Excepciones.ValidacionException
 
 class SistemaRYLTestCase {
 	
@@ -33,7 +34,7 @@ class SistemaRYLTestCase {
 	}
 	
 	@Test
-	(expected= UsuarioExisteException )def registrarUsuarioExistente(){
+	(expected= UsuarioExisteException )def void registrarUsuarioExistente(){
 		sist.borrarHome()
 		sist.registrarUsuario(user)
 		sist.registrarUsuario(user)
@@ -56,36 +57,33 @@ class SistemaRYLTestCase {
 	}
 	
 	@Test
-	(expected= UsuarioNoExisteException ) def ingresoDeUsuarioNoRegistrado(){
+	(expected= UsuarioNoExisteException ) def void ingresoDeUsuarioNoRegistrado(){
 		Assert.assertTrue(sist.ingresarUsuario("Usuario No Registrado","345"))
 		
 	}
 	
-	
-	
-	
-	/* 
 	@Test
-	def void validarCuentaTest(){
-		sist.registrarUsuario(user)
-		Assert.assertFalse(user.estadoDeValidacion)
-		sist.validarCuenta(user.codigoDeValidacion)
-		Assert.assertTrue(user.estadoDeValidacion)
+	def void cambiarPasswordTest(){
 		sist.borrarHome()
-	}*/
-	
-		/*
-    
-    @Test
-	def void noValidarCuentaTest(){
-			
-	    sist.borrarHome()
-	
 		sist.registrarUsuario(user)
-		Assert.assertFalse(user.estadoDeValidacion)
-		
-		
-	}*/
-
+		var nuevaPass = "456"
+		sist.cambiarPassword(user.idNombre,user.password,nuevaPass)
+		Assert.assertTrue(sist.ingresarUsuario(user.idNombre,nuevaPass))
+	}
 	
+	@Test
+	(expected= NuevaPasswordInvalidaException) def void cambiarPasswordTest_IngresoDeClaveIdenticaALaActual(){
+		sist.borrarHome()
+		sist.registrarUsuario(user)
+		sist.cambiarPassword(user.idNombre,user.password,user.password)
+	}
+	
+	@Test
+	(expected= ValidacionException)  def void validarCuentaTest_ConCodigoDeValidacionIncorrecto(){
+		sist.borrarHome()
+		sist.registrarUsuario(user)
+		var codigoValidacionIncorrecto = "codigoIncorrecto"
+		sist.validarCuenta("codigoIncorrecto")
+	}
+    
 }
