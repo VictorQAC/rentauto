@@ -29,14 +29,11 @@ class SistemaRYLTestCase {
 	def void registrarUsuarioNoExistente(){
 		sist.borrarHome()
 		sist.registrarUsuario(user)
-		Assert.assertTrue(sist.usuarioExistente(user.idNombre))
-		//sist.borrarHome()	
+		Assert.assertTrue(sist.usuarioExistente(user.idNombre))	
 	}
 	
 	@Test
 	(expected= UsuarioExisteException )def void registrarUsuarioExistente(){
-		sist.borrarHome()
-		sist.registrarUsuario(user)
 		sist.registrarUsuario(user)
 	}
 	
@@ -45,7 +42,6 @@ class SistemaRYLTestCase {
 		sist.borrarHome()
 		sist.registrarUsuario(user)
 		Assert.assertTrue(sist.ingresarUsuario(user.idNombre,user.password))
-		//sist.borrarHome()
 	}
 	
 	@Test
@@ -53,12 +49,11 @@ class SistemaRYLTestCase {
 		sist.borrarHome()
 		sist.registrarUsuario(user)
 		Assert.assertFalse(sist.ingresarUsuario(user.idNombre,"Contraseña Incorrecta"))
-		//sist.borrarHome()
 	}
 	
 	@Test
 	(expected= UsuarioNoExisteException ) def void ingresoDeUsuarioNoRegistrado(){
-		Assert.assertTrue(sist.ingresarUsuario("Usuario No Registrado","345"))
+		sist.ingresarUsuario("Usuario No Registrado","345")
 		
 	}
 	

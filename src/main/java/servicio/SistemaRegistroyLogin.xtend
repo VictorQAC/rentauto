@@ -37,7 +37,6 @@ class SistemaRegistroyLogin {
 			throw new ValidacionException
 		}
 			else{
-				user.validar()
 				this.uh.actualizarValidacion(user.idNombre,true)
 			}
 	}
