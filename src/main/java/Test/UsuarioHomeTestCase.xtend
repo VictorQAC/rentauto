@@ -25,52 +25,59 @@ class UsuarioHomeTestCase {
 	
 	
 	@Test
-	def void existeUsuarioTest(){
+	def void existeUsuarioEnlaBD(){
+		usuarioHome.borrarDatos()
 		usuarioHome.guardar(user)
 		Assert.assertTrue(usuarioHome.existeUsuario("jgrillo"))
-		usuarioHome.borrarDatos()
 	}
 	
 	@Test
-	def noExisteUsuarioTest(){
-		
+	def noExisteUsuarioEnlaBD(){
 		Assert.assertFalse(usuarioHome.existeUsuario("pgrillo"))
 	}
 	
 	@Test
-	def noGetUsuarioPorCodigoDeValidacionTest(){
+	def void getUsuarioPorCodigoDeValidacionTest_CodigoDeValidacionReferenciadoAlUsuario(){
+		user.codigoDeValidacion = "soyUnCodigoDeValidacion"
+		usuarioHome.borrarDatos()
+		usuarioHome.guardar(user)
+		Assert.assertEquals(usuarioHome.getUsuarioPorCodigoDeValidacion("soyUnCodigoDeValidacion").idNombre,
+							user.idNombre)
+	}
+	
+	@Test
+	def getUsuarioPorCodigoDeValidacionTest_CodigoDeValidacionNoReferenciadoAlUsuario(){
 		Assert.assertEquals(usuarioHome.getUsuarioPorCodigoDeValidacion("unCodigoDeValidacion"),
 							null)
 	}
 	
 	@Test
-	def void getUsuarioPorCodigoDeValidacionTest(){
-		user.codigoDeValidacion = "soyUnCodigoDeValidacion"
-		usuarioHome.guardar(user)
-		Assert.assertEquals(usuarioHome.getUsuarioPorCodigoDeValidacion("soyUnCodigoDeValidacion").idNombre,
-							user.idNombre)
-		usuarioHome.borrarDatos()
-	}
-	
-	@Test
 	def void actualizarPasswordTest(){
+		usuarioHome.borrarDatos()
 		usuarioHome.guardar(user)
 		Assert.assertEquals(usuarioHome.getPassword("jgrillo"),"123")
 		usuarioHome.actualizarPassword("jgrillo","222")
-		Assert.assertEquals(usuarioHome.getPassword("jgrillo"),"222")
-		usuarioHome.borrarDatos()		
+		Assert.assertEquals(usuarioHome.getPassword("jgrillo"),"222")		
 	}
 	
 	@Test
 	def void loguearseTest(){
+		usuarioHome.borrarDatos()
 		usuarioHome.guardar(user)
 		Assert.assertTrue(usuarioHome.loguearse("jgrillo","123"))
-		usuarioHome.borrarDatos()
 	}
 	
 	@Test
-	def void noPuedeloguearseTest(){
-		Assert.assertFalse(usuarioHome.loguearse("Juanito","123"))
+	def void loguearseTest_UsuarioIncorrecto(){
+		usuarioHome.borrarDatos()
+		usuarioHome.guardar(user)
+		Assert.assertFalse(usuarioHome.loguearse("Usuario Incorrecto","456"))
 	}
 	
+	@Test
+	def void loguearseTest_ContraseniaIncorrecta(){
+		usuarioHome.borrarDatos()
+		usuarioHome.guardar(user)
+		Assert.assertFalse(usuarioHome.loguearse("jgrillo","Contraseña Incorrecta"))
+	}
 }

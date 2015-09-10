@@ -11,13 +11,19 @@ import java.sql.ResultSet
 class UsuarioHome {
 	new(){}
 	
+	/**
+	 * Genera la coneccion a la Base de Datos
+	 */
 	private def Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password=");
 	}
 	
-	////////////////////////// aca esta lo nuevo /////////////
-	
+	/**
+	 * Trae de la Base de Datos el usuario referenciado al codigo de validacion
+	 * @param codigoValidacion = Es el codigo de validacion utilizado para obtener el
+	 * usuario.
+	 */
 	def getUsuarioPorCodigoDeValidacion(String codigoValidacion) {
 		var Connection conn = null;
 		var PreparedStatement ps = null;
@@ -51,6 +57,10 @@ class UsuarioHome {
         
 	}
 	
+	/**
+	 * Guarda los datos del usuario en la Base de Datos
+	 * @param usuario = Es el usuario a persistir
+	 */
 	def guardar(Usuario usuario) {
 		var Connection conn = null;
 		var PreparedStatement ps = null;
@@ -79,6 +89,10 @@ class UsuarioHome {
 		}
 	}
 	
+	/**
+	 * Devuelve true si el usario existe en la Base de datos
+	 * @param idNombre = Es el ID del usuario a buscar.
+	 */
 	def existeUsuario(String idNombre) {
 		var String idUsuario
 		var Connection conn = null;
@@ -101,6 +115,11 @@ class UsuarioHome {
 		}
 	}
 	
+	/**
+	 * Actualiza el password del usuario informado
+	 * @param idNombre = El ID del usuario a actualizar el password
+	 * @param nuevaPassword = Password a actualizar.
+	 */
 	def actualizarPassword(String idNombre, String nuevaPassword) {
 		var Connection conn = null;
 		var PreparedStatement ps = null;
@@ -118,14 +137,19 @@ class UsuarioHome {
 		}
 	}
 	
-	def loguearse(String idName, String password) {
+	/**
+	 * Devuelve true si se pudo loguear
+	 * @param idNombre = El ID del usuario a loquearse
+	 * @param password = El Password del usuario a loquearse
+	 */
+	def loguearse(String idNombre, String password) {
 		var Connection conn = null;
 		var PreparedStatement ps = null;
 		try {
 			conn = this.getConnection();
 			ps = conn.prepareStatement("SELECT *
 								FROM USUARIO WHERE IDNOMBRE = ? AND PASSWORD = ?")
-			ps.setString(1,idName)
+			ps.setString(1,idNombre)
 			ps.setString(2,password)
 			var ResultSet rs =ps.executeQuery()
 			return rs.next()						
@@ -138,6 +162,10 @@ class UsuarioHome {
 		
 	}
 	
+	/**
+	 * Devuelve el password del usuario pasado por parametro
+	 * @param idNombre = El ID del usuario a obtener el password
+	 */
 	def getPassword(String idNombre) {
 		var String pass;
 		var Connection conn = null;
@@ -163,7 +191,10 @@ class UsuarioHome {
 		}
 	}
 	
-      def void borrarDatos(){
+	/**
+	 * Borra los datos de la Base de Datos
+	 */
+	def void borrarDatos(){
       	
       	var Connection conn = null;
 		var PreparedStatement ps = null;
@@ -180,6 +211,11 @@ class UsuarioHome {
 		}
 	}
 	
+	/**
+	 * Actualiza el estado de validacion del usuario en la Base de Datos
+	 * @param idNombre = El ID del usuario que se le actualizara el estado de validacion
+	 * @param estadoValidacion = Booleano a setear 
+	 */
 	def actualizarValidacion(String idNombre, boolean estadoValidacion) {
 		var Connection conn = null;
 		var PreparedStatement ps = null;

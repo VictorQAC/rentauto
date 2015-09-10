@@ -1,5 +1,8 @@
 package servicio
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class Mail implements EnviadorDeMails{
 	
 	var String body

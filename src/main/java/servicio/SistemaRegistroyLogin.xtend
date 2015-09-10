@@ -15,18 +15,15 @@ class SistemaRegistroyLogin {
 	
 	new(){
 		uh = new UsuarioHome
-		em = new Mail
+		em = new EnviadorDeMailsImpl
 	}
 	
 	/**
-	 * Genera y asigna un codigo de validacion al usuario.
-	 * @param usuario = El usuario a asignarle un codigo de validacion.
+	 * Genera un codigo de validacion al usuario.
 	 */
 	def generarCodigoDeValidacionParaUsuario(){
 		return (Math.random()*10000).toString
 	}
-	 
-	///// esto es lo nuevo ///////////////////////
 	 
 	 /**
 	 * Valida al usuario perteneciente al codigo de validacion dado.
@@ -34,7 +31,6 @@ class SistemaRegistroyLogin {
 	 * usuario a validar.
 	 * @throws ValidacionException
 	 */
-	 
 	def void validarCuenta(String codigoValidacion){
 		var Usuario user = uh.getUsuarioPorCodigoDeValidacion(codigoValidacion)
 		if(user == null){
@@ -83,17 +79,24 @@ class SistemaRegistroyLogin {
 			throw new NuevaPasswordInvalidaException
 	}
 	
+	/**
+	 * Borra los datos ingresados en la Base de Datos
+	 */
 	def void borrarHome(){
 		uh.borrarDatos()
 	}
 	
+	/**
+	 * Retorna true si el usuario existe,false en caso contrario.
+	 * @param idNombre = Es el ID del ususario.
+	 */
 	def usuarioExistente(String idNombre){
 		return this.uh.existeUsuario(idNombre)
 	}
 	
 	/**
 	 * Retorna true si el usuario ingreso correctamente sus datos.
-	 * @param userName = Es el nombre de ususario.
+	 * @param userName = Es el ID del ususario.
 	 * @param password = Es el password el usuario.
 	 * @throws UsuarioNoExisteException
 	 */
