@@ -29,6 +29,8 @@ class Usuario implements IUsuario {
 	 * @param unNombreDeUsuario = Es el nombre de usuario que tendra el usuario.
 	 * @param unEmail = Es el email que tendra el usuario.
 	 * @param unaFechaDeNacimiento = Es el fecha de nacimiento que tendra el usuario.
+	 * @param codigoDeValidacion = es el codigo para validar el usuario
+	 * @param estadoDeValidacion = booleano que indica el estado
 	 */
 	 new(){}
 	 
@@ -52,9 +54,4 @@ class Usuario implements IUsuario {
 	override getReservas() {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
-	
-	def validar() {
-		this.estadoDeValidacion = true
-	}
-
 }
