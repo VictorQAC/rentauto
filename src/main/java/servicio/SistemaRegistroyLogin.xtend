@@ -36,9 +36,8 @@ class SistemaRegistroyLogin {
 		if(user == null){
 			throw new ValidacionException
 		}
-			else{
-				this.uh.actualizarValidacion(user.idNombre,true)
-			}
+		user.validate();
+		this.uh.actualizar(user)
 	}
 	
 	
@@ -72,8 +71,11 @@ class SistemaRegistroyLogin {
 	 * @throws NuevaPasswordInvalidaException
 	 */
 	def cambiarPassword(String idNombre, String password, String nuevaPassword){
-		if(password != nuevaPassword)
-			uh.actualizarPassword(idNombre,nuevaPassword)
+		var Usuario user = uh.getUsuarioPorIDNombre(idNombre)
+		if(password != nuevaPassword){
+			user.actualizarPassword(nuevaPassword)
+			this.uh.actualizar(user)
+		}
 		else
 			throw new NuevaPasswordInvalidaException
 	}
@@ -99,10 +101,9 @@ class SistemaRegistroyLogin {
 	 * @param password = Es el password el usuario.
 	 * @throws UsuarioNoExisteException
 	 */
-	def ingresarUsuario(String idName, String password) {
-		if (this.usuarioExistente(idName)){
-			val Boolean res = this.uh.loguearse(idName,password)
-			return res	
+	def ingresarUsuario(String idNombre, String password) {
+		if (this.usuarioExistente(idNombre)){
+			this.uh.loguearse(idNombre,password)
 		}
 		else
 			throw new UsuarioNoExisteException
