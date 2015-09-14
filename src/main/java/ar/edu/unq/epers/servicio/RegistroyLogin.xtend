@@ -49,14 +49,12 @@ class RegistroyLogin {
 	 */
 	def registrarUsuario(Usuario usuarioNuevo) {
 		var String cdv
-		if (this.usuarioExistente(usuarioNuevo.idNombre))
+		if (this.usuarioExistente(usuarioNuevo.idNombre)){
 			throw new UsuarioExisteException
-		else{
-			cdv = this.generarCodigoDeValidacionParaUsuario()
-			usuarioNuevo.codigoDeValidacion = cdv
-			this.uh.guardar(usuarioNuevo)
 		}
-		
+		cdv = this.generarCodigoDeValidacionParaUsuario()
+		usuarioNuevo.codigoDeValidacion = cdv
+		this.uh.guardar(usuarioNuevo)
 		val Mail mailConCodValidacion = new Mail (cdv,"Codigo De Validacion",
 											"Sistema Administrador",usuarioNuevo.idNombre)
 		em.enviarMail(mailConCodValidacion)
