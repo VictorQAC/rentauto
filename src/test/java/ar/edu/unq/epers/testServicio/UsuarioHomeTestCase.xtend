@@ -1,11 +1,13 @@
-package Test
+package ar.edu.unq.epers.testServicio
 
-import home.UsuarioHome
+
+
 import java.sql.Date
-import servicio.Usuario
 import org.junit.Before
 import org.junit.Assert
 import org.junit.Test
+import ar.edu.unq.epers.home.UsuarioHome
+import ar.edu.unq.epers.servicio.Usuario
 
 class UsuarioHomeTestCase {
 	

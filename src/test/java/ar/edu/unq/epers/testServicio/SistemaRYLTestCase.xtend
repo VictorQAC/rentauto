@@ -1,18 +1,19 @@
-package Test
+package ar.edu.unq.epers.testServicio
 
-import Excepciones.NuevaPasswordInvalidaException
-import Excepciones.UsuarioExisteException
-import Excepciones.UsuarioNoExisteException
-import Excepciones.ValidacionException
-import home.UsuarioHome
+
 import java.sql.Date
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import servicio.EnviadorDeMails
-import servicio.SistemaRegistroyLogin
-import servicio.Usuario
 import static org.mockito.Mockito.*;
+import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.servicio.SistemaRegistroyLogin
+import ar.edu.unq.epers.home.UsuarioHome
+import ar.edu.unq.epers.servicio.EnviadorDeMails
+import ar.edu.unq.epers.excepciones.UsuarioExisteException
+import ar.edu.unq.epers.excepciones.UsuarioNoExisteException
+import ar.edu.unq.epers.excepciones.NuevaPasswordInvalidaException
+import ar.edu.unq.epers.excepciones.ValidacionException
 
 class SistemaRYLTestCase {
 	

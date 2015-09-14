@@ -1,9 +1,9 @@
-package servicio
+package ar.edu.unq.epers.servicio
 
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Mail implements EnviadorDeMails{
+class Mail{
 	
 	var String body
 	var String subject
@@ -20,8 +20,5 @@ class Mail implements EnviadorDeMails{
 		
 	new(){}
 	
-	override enviarMail(Mail mail) {
-		
-	}	
-		
+	
 }

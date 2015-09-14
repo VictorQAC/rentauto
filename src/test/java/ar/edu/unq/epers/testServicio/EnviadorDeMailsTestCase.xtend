@@ -1,13 +1,13 @@
-package Test
+package ar.edu.unq.epers.testServicio
 
 import org.junit.Test
-import Excepciones.EnviarMailException
-import servicio.EnviadorDeMailsImpl
-import servicio.Mail
+import ar.edu.unq.epers.servicio.Mail
+import ar.edu.unq.epers.excepciones.EnviarMailException
+import ar.edu.unq.epers.servicio.EnviadorDeMails
 
 class EnviadorDeMailsTestCase {
 	
-	var EnviadorDeMailsImpl enviadorDeMail = new EnviadorDeMailsImpl()
+	var EnviadorDeMails enviadorDeMail
 	var Mail mail
 	
 	@Test

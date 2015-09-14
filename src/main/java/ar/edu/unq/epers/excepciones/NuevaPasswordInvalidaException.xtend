@@ -1,4 +1,4 @@
-package Excepciones
+package ar.edu.unq.epers.excepciones
 
 class NuevaPasswordInvalidaException extends Exception {
 	new(){

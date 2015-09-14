@@ -1,4 +1,4 @@
-package servicio
+package ar.edu.unq.epers.servicio
 
 interface EnviadorDeMails {
 	
