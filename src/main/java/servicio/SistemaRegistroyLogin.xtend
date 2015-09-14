@@ -13,9 +13,9 @@ class SistemaRegistroyLogin {
 	var UsuarioHome uh 
 	var EnviadorDeMails em 
 	
-	new(){
-		uh = new UsuarioHome
-		em = new EnviadorDeMailsImpl
+	new(UsuarioHome usHome, EnviadorDeMails enMail){
+		uh = usHome
+		em = enMail
 	}
 	
 	/**
@@ -107,4 +107,26 @@ class SistemaRegistroyLogin {
 		else
 			throw new UsuarioNoExisteException
 	}
+	
+	/** 
+	 * Retorna true si el usuario ingreso correctamente al sistema
+	 * @param usuario = Es el usuario que ingresa al sistema  
+	 */
+	
+	def usuarioIngresadoCorrectamente(Usuario usuario) {
+		
+	   return this.uh.loguearse(usuario.idNombre,usuario.password)
+	}
+	
+	/**
+	 * Retorna true si el usuario cambio correctamente su password
+	 * @param usuario = Es el usuario que cambio su password
+	 * @param nuevaPass = Es la password nueva que eligio el usuario
+	 */
+	
+	def passwordCambiadoCorrectamente(Usuario usuario,String nuevaPass) {
+		
+		return uh.getPassword(usuario.idNombre) == nuevaPass
+	}
+	
 }
