@@ -66,7 +66,8 @@ class UsuarioHomeTestCase {
 	def void loguearseTest(){
 		usuarioHome.borrarDatos()
 		usuarioHome.guardar(user)
-		Assert.assertEquals(usuarioHome.loguearse("jgrillo","123"),user)
+		var Usuario user2 = usuarioHome.loguearse("jgrillo","123")
+		Assert.assertEquals(user2.idNombre,user.idNombre)
 	}
 	
 	@Test
@@ -81,5 +82,31 @@ class UsuarioHomeTestCase {
 		usuarioHome.borrarDatos()
 		usuarioHome.guardar(user)
 		Assert.assertEquals(usuarioHome.loguearse("jgrillo","Contraseña Incorrecta"),null)
+	}
+	
+	@Test
+	def void actualizarTest(){
+		usuarioHome.borrarDatos()
+		usuarioHome.guardar(user)
+		Assert.assertEquals(user.nombre,"jorge")
+		user.nombre = "Juan"
+		usuarioHome.actualizar(user)
+		Assert.assertEquals(user.nombre,"Juan")
+	}
+	
+	@Test
+	def void getUsuarioPorIDNombre(){
+		usuarioHome.borrarDatos()
+		usuarioHome.guardar(user)
+		var Usuario userCopy = usuarioHome.getUsuarioPorIDNombre("jgrillo")
+		Assert.assertEquals(user.idNombre,userCopy.idNombre)
+	}
+	
+	@Test
+	def void getUsuarioPorIDNombre_UsuarioNoExistente(){
+		usuarioHome.borrarDatos()
+		usuarioHome.guardar(user)
+		var Usuario userCopy = usuarioHome.getUsuarioPorIDNombre("pepegrillo")
+		Assert.assertEquals(userCopy,null)
 	}
 }

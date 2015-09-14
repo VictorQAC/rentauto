@@ -16,7 +16,7 @@ class UsuarioHome {
 	 */
 	private def Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password=root");
+		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password");
 	}
 	
 	/**
@@ -230,9 +230,9 @@ class UsuarioHome {
 		var PreparedStatement ps = null;
 		try {
 			conn = this.getConnection();
-			ps = conn.prepareStatement("UPDATE USUARIO SET NOMBRE = ? 
-										APELLIDO = ? PASSWORD = ? FECHADENACIMIENTO = ? 
-										EMAIL = ? CODIGODEVALIDACION = ? ESTADODEVALIDACION = ?
+			ps = conn.prepareStatement("UPDATE USUARIO SET NOMBRE = ? ,
+										APELLIDO = ? ,PASSWORD = ? ,FECHADENACIMIENTO = ? ,
+										EMAIL = ? ,CODIGODEVALIDACION = ? ,ESTADODEVALIDACION = ?
 										WHERE IDNOMBRE = ?")
 			ps.setString(1,user.nombre)
 			ps.setString(2,user.apellido)
