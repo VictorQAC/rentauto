@@ -54,4 +54,13 @@ class Usuario implements IUsuario {
 	override getReservas() {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
+	
+	def validate() {
+		this.estadoDeValidacion= true
+	}
+	
+	def actualizarPassword(String nuevaPassword) {
+		this.password = nuevaPassword
+	}
+	
 }

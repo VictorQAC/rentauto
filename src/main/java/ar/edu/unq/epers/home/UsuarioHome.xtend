@@ -4,8 +4,8 @@ import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.PreparedStatement
 import org.eclipse.xtend.lib.annotations.Accessors
-import ar.edu.unq.epers.servicio.Usuario
 import java.sql.ResultSet
+import ar.edu.unq.epers.servicio.Usuario
 
 @Accessors
 class UsuarioHome {
@@ -152,7 +152,16 @@ class UsuarioHome {
 			ps.setString(1,idNombre)
 			ps.setString(2,password)
 			var ResultSet rs =ps.executeQuery()
-			return rs.next()						
+			if (rs.next()) {
+				var Usuario user = new Usuario(rs.getString("NOMBRE"),rs.getString("APELLIDO"),
+										rs.getString("IDNOMBRE"),rs.getString("EMAIL"),
+										rs.getString("PASSWORD"),rs.getDate("FECHADENACIMIENTO"))
+				user.codigoDeValidacion = rs.getString("CODIGODEVALIDACION")
+				user.estadoDeValidacion = rs.getBoolean("ESTADODEVALIDACION")
+				return user
+			}else{
+				return null
+			}						
 		}finally {
 			if (ps != null)
 				ps.close();
@@ -216,14 +225,23 @@ class UsuarioHome {
 	 * @param idNombre = El ID del usuario que se le actualizara el estado de validacion
 	 * @param estadoValidacion = Booleano a setear 
 	 */
-	def actualizarValidacion(String idNombre, boolean estadoValidacion) {
+	def actualizar(Usuario user) {
 		var Connection conn = null;
 		var PreparedStatement ps = null;
 		try {
 			conn = this.getConnection();
-			ps = conn.prepareStatement("UPDATE USUARIO SET ESTADODEVALIDACION = ? WHERE IDNOMBRE = ?")
-			ps.setBoolean(1,estadoValidacion)
-			ps.setString(2,idNombre)
+			ps = conn.prepareStatement("UPDATE USUARIO SET NOMBRE = ? 
+										APELLIDO = ? PASSWORD = ? FECHADENACIMIENTO = ? 
+										EMAIL = ? CODIGODEVALIDACION = ? ESTADODEVALIDACION = ?
+										WHERE IDNOMBRE = ?")
+			ps.setString(1,user.nombre)
+			ps.setString(2,user.apellido)
+			ps.setString(3,user.password)
+			ps.setDate(4,user.fechaDeNacimiento)
+			ps.setString(5,user.email)
+			ps.setString(6,user.codigoDeValidacion)
+			ps.setBoolean(7,user.estadoDeValidacion)
+			ps.setString(8,user.idNombre)
 			ps.executeUpdate()
 		}finally {
 			if (ps != null)
@@ -232,5 +250,38 @@ class UsuarioHome {
 				conn.close();
 		}
 			}
+	
+	def getUsuarioPorIDNombre(String idNombre) {
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		try {
+			conn = this.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM  USUARIO WHERE IDNOMBRE = ? ")
+			ps.setString(1,idNombre);
+			val rs = ps.executeQuery()
+		
+			if (rs.next()) {
+				val Usuario res = new Usuario
+				res.nombre = rs.getString("NOMBRE")
+				res.apellido = rs.getString("APELLIDO")
+				res.idNombre = rs.getString("IDNOMBRE")
+				res.password = rs.getString("PASSWORD")
+				res.email = rs.getString("EMAIL")
+				res.fechaDeNacimiento = rs.getDate("FECHADENACIMIENTO")
+				res.codigoDeValidacion = rs.getString("CODIGODEVALIDACION")
+				res.estadoDeValidacion = rs.getBoolean("ESTADODEVALIDACION")
+				return res
+        	}
+        	else
+        		return null
+        		
+        }finally {
+			if (ps != null)
+				ps.close();
+			if (conn != null)
+				conn.close();
+		}
+	}
+	
 	}
       

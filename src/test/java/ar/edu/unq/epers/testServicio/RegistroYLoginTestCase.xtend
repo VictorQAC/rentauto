@@ -7,7 +7,7 @@ import org.junit.Before
 import org.junit.Test
 import static org.mockito.Mockito.*;
 import ar.edu.unq.epers.servicio.Usuario
-import ar.edu.unq.epers.servicio.SistemaRegistroyLogin
+import ar.edu.unq.epers.servicio.RegistroyLogin
 import ar.edu.unq.epers.home.UsuarioHome
 import ar.edu.unq.epers.servicio.EnviadorDeMails
 import ar.edu.unq.epers.excepciones.UsuarioExisteException
@@ -15,21 +15,28 @@ import ar.edu.unq.epers.excepciones.UsuarioNoExisteException
 import ar.edu.unq.epers.excepciones.NuevaPasswordInvalidaException
 import ar.edu.unq.epers.excepciones.ValidacionException
 
-class SistemaRYLTestCase {
+
+class RegistroYLoginTestCase {
 	
 	var Usuario user
-	var SistemaRegistroyLogin sist
+	var Usuario user2
+	var RegistroyLogin sist
 	var UsuarioHome mockHome
 	var EnviadorDeMails mockEnv
+	
     
     @Before
     def void setUp(){
     	user = new Usuario("carlos","grillo","cargrillo","mail@hotmail.com"
 			,"123",new Date(10 / 11 / 1990))
 			
+		user2 = new Usuario("jose","grillo","jgrillo","jmail@hotmail.com"
+			,"122",new Date(10 / 12 / 1993))
+			
+			
 		mockHome = mock(UsuarioHome)
 		mockEnv = mock(EnviadorDeMails)
-		sist = new SistemaRegistroyLogin(mockHome,mockEnv)
+		sist = new RegistroyLogin(mockHome,mockEnv)
     }
     
     @Test
@@ -57,7 +64,7 @@ class SistemaRYLTestCase {
 		//sist.registrarUsuario(user)
 		
 		when(mockHome.existeUsuario(user.idNombre)).thenReturn(true)
-		when(mockHome.loguearse(user.idNombre,user.password)).thenReturn(true)
+		when(mockHome.loguearse(user.idNombre,user.password)).thenReturn(user)
 		
 		sist.ingresarUsuario(user.idNombre,user.password)
 		
@@ -70,7 +77,7 @@ class SistemaRYLTestCase {
 		//sist.registrarUsuario(user)
 		
 		when(mockHome.existeUsuario(user.idNombre)).thenReturn(true)
-		when(mockHome.loguearse(user.idNombre,user.password)).thenReturn(false)
+		when(mockHome.loguearse(user.idNombre,user.password)).thenReturn(null)
 		
 		sist.ingresarUsuario(user.idNombre,"Contraseña Incorrecta")
 		
@@ -114,5 +121,6 @@ class SistemaRYLTestCase {
 		var codigoValidacionIncorrecto = "codigoIncorrecto"
 		sist.validarCuenta("codigoIncorrecto")
 	}
+	
     
 }

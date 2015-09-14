@@ -66,20 +66,20 @@ class UsuarioHomeTestCase {
 	def void loguearseTest(){
 		usuarioHome.borrarDatos()
 		usuarioHome.guardar(user)
-		Assert.assertTrue(usuarioHome.loguearse("jgrillo","123"))
+		Assert.assertEquals(usuarioHome.loguearse("jgrillo","123"),user)
 	}
 	
 	@Test
 	def void loguearseTest_UsuarioIncorrecto(){
 		usuarioHome.borrarDatos()
 		usuarioHome.guardar(user)
-		Assert.assertFalse(usuarioHome.loguearse("Usuario Incorrecto","456"))
+		Assert.assertEquals(usuarioHome.loguearse("Usuario Incorrecto","456"),null)
 	}
 	
 	@Test
 	def void loguearseTest_ContraseniaIncorrecta(){
 		usuarioHome.borrarDatos()
 		usuarioHome.guardar(user)
-		Assert.assertFalse(usuarioHome.loguearse("jgrillo","Contraseña Incorrecta"))
+		Assert.assertEquals(usuarioHome.loguearse("jgrillo","Contraseña Incorrecta"),null)
 	}
 }
