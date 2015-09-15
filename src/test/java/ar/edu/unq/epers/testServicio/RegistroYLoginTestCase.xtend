@@ -44,8 +44,7 @@ class RegistroYLoginTestCase {
     
     @Test
 	def void registrarUsuarioNoExistente(){
-		//sist.borrarHome()
-		
+
 	    sist.registrarUsuario(user)
 		
 	    when(mockHome.existeUsuario(user.idNombre)).thenReturn(true)
@@ -63,8 +62,6 @@ class RegistroYLoginTestCase {
 	
 	@Test
 	def void ingresoDeUsuarioCorrectamente(){
-		//sist.borrarHome()
-		//sist.registrarUsuario(user)
 		
 		when(mockHome.existeUsuario(user.idNombre)).thenReturn(true)
 		when(mockHome.loguearse(user.idNombre,user.password)).thenReturn(user)
@@ -76,8 +73,6 @@ class RegistroYLoginTestCase {
 	
 	@Test
 	def void ingresoDeUsuarioConPasswordEquivocada(){
-		//sist.borrarHome()
-		//sist.registrarUsuario(user)
 		
 		when(mockHome.existeUsuario(user.idNombre)).thenReturn(true)
 		when(mockHome.loguearse(user.idNombre,user.password)).thenReturn(null)
@@ -96,8 +91,6 @@ class RegistroYLoginTestCase {
 	
 	@Test
 	def void cambiarPasswordTest(){
-		//sist.borrarHome()
-		//sist.registrarUsuario(user)
 		
 		var nuevaPass = "456"
 		
@@ -112,18 +105,15 @@ class RegistroYLoginTestCase {
 	
 	@Test
 	(expected= NuevaPasswordInvalidaException) def void cambiarPasswordTest_IngresoDeClaveIdenticaALaActual(){
-		//sist.borrarHome()
-		//sist.registrarUsuario(user)
 		
 		sist.cambiarPassword(user.idNombre,user.password,user.password)
 	}
 	
 	@Test
 	(expected= ValidacionException)  def void validarCuentaTest_ConCodigoDeValidacionIncorrecto(){
-		//sist.borrarHome()
-		//sist.registrarUsuario(user)
 		
 		var codigoValidacionIncorrecto = "codigoIncorrecto"
+		
 		sist.validarCuenta("codigoIncorrecto")
 	}
 	
