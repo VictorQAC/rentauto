@@ -16,7 +16,7 @@ class UsuarioHome {
 	 */
 	private def Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password");
+		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password=root");
 	}
 	
 	/**

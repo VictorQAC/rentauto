@@ -14,7 +14,8 @@ import ar.edu.unq.epers.excepciones.UsuarioExisteException
 import ar.edu.unq.epers.excepciones.UsuarioNoExisteException
 import ar.edu.unq.epers.excepciones.NuevaPasswordInvalidaException
 import ar.edu.unq.epers.excepciones.ValidacionException
-
+import ar.edu.unq.epers.servicio.Mail
+import ar.edu.unq.epers.servicio.GeneradorDeCodigo
 
 class RegistroYLoginTestCase {
 	
@@ -23,7 +24,8 @@ class RegistroYLoginTestCase {
 	var RegistroyLogin sist
 	var UsuarioHome mockHome
 	var EnviadorDeMails mockEnv
-	
+	var Mail            mockMail
+	var GeneradorDeCodigo mockGenerador
     
     @Before
     def void setUp(){
@@ -36,7 +38,8 @@ class RegistroYLoginTestCase {
 			
 		mockHome = mock(UsuarioHome)
 		mockEnv = mock(EnviadorDeMails)
-		sist = new RegistroyLogin(mockHome,mockEnv)
+		mockGenerador = mock(GeneradorDeCodigo)
+		sist = new RegistroyLogin(mockHome,mockEnv,mockGenerador)
     }
     
     @Test
@@ -98,6 +101,8 @@ class RegistroYLoginTestCase {
 		
 		var nuevaPass = "456"
 		
+		when(mockHome.getUsuarioPorIDNombre(user.idNombre)).thenReturn(user)
+		
 		sist.cambiarPassword(user.idNombre,user.password,nuevaPass)
 		
 		when(mockHome.getPassword(user.idNombre)).thenReturn(nuevaPass)
@@ -122,5 +127,22 @@ class RegistroYLoginTestCase {
 		sist.validarCuenta("codigoIncorrecto")
 	}
 	
+	@Test
+	
+	def void mailEnviadoCorrectamenteTest(){
+		
+		sist.enviarMailConValidacion(mockMail)
+		
+		verify(mockEnv).enviarMail(mockMail)
+	}
+    
+    @Test
+	
+	def void codigoGeneradoCorrectamenteTest(){
+		
+		sist.generarCodigoDeValidacionParaUsuario()
+		
+		verify(mockGenerador).generarCodigo()
+	}
     
 }

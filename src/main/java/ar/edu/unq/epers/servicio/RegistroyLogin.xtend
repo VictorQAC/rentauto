@@ -12,17 +12,19 @@ class RegistroyLogin {
 
 	var UsuarioHome uh 
 	var EnviadorDeMails em 
+	var GeneradorDeCodigo gen
 	
-	new(UsuarioHome usHome, EnviadorDeMails enMail){
+	new(UsuarioHome usHome, EnviadorDeMails enMail,GeneradorDeCodigo genCod){
 		uh = usHome
 		em = enMail
+		gen = genCod
 	}
 	
 	/**
 	 * Genera un codigo de validacion al usuario.
 	 */
 	def generarCodigoDeValidacionParaUsuario(){
-		return (Math.random()*10000).toString
+		return gen.generarCodigo
 	}
 	 
 	 /**
@@ -57,7 +59,7 @@ class RegistroyLogin {
 		this.uh.guardar(usuarioNuevo)
 		val Mail mailConCodValidacion = new Mail (cdv,"Codigo De Validacion",
 											"Sistema Administrador",usuarioNuevo.idNombre)
-		em.enviarMail(mailConCodValidacion)
+		enviarMailConValidacion(mailConCodValidacion)
 	}
 	
 	/**
@@ -121,4 +123,12 @@ class RegistroyLogin {
 		return uh.getPassword(usuario.idNombre) == nuevaPass
 	}
 	
+	/**
+	 * Envia el mail con el codigo de validacion 
+	 * @param mail = Es el mail a enviar
+	 */
+	def void enviarMailConValidacion(Mail mail){
+		
+		em.enviarMail(mail)
+	}
 }
