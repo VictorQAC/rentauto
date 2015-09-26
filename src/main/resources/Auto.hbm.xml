@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ar.edu.unq.epers.model.Auto" table="autos">
+        <id name="idAuto" type="java.lang.Integer">
+            <column name="auto_Id" />
+            <generator class="identity" />
+        </id>
+
+
+        <property name="marca" type="string">
+            <column name="marca" length="45" not-null="true" />
+        </property>
+
+        <property name="modelo" type="string">
+            <column name="modelo" length="45" not-null="true" />
+        </property>
+
+        <property name="anio" type="java.lang.Integer">
+            <column name="anio" />
+        </property>
+
+        <property name="patente" type="string">
+            <column name="patente" length="7" />
+        </property>
+
+        <property name="costoBase" type="java.lang.Double">
+            <column name="costoBase" />
+        </property>
+
+           <many-to-one name="categoria" column="id_Categoria"
+               not-null="true" cascade="all" lazy="false"/>
+
+         <many-to-one name="ubicacionInicial" column="id_Ubicacion"
+             not-null="true" cascade="all" lazy="false"/>
+
+         <bag name="reservas" inverse="true" cascade="all" lazy="false">
+         <key  column="auto_Id" />
+         <one-to-many class="ar.edu.unq.epers.model.Reserva" />
+         </bag>
+
+    </class>
+</hibernate-mapping>
