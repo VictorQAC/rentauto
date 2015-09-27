@@ -6,6 +6,7 @@ import static ar.edu.unq.epers.extensions.DateExtensions.*
 import org.joda.time.DateTime
 import org.joda.time.Days
 
+
 @Accessors
 class Reserva {
 	Integer numeroSolicitud
@@ -54,6 +55,7 @@ class Reserva {
 		this.auto.agregarReserva(this)
 		this.usuario.agregarReserva(this)
 	}
+
 }
 
 

@@ -4,6 +4,8 @@ import ar.edu.unq.epers.model.IUsuario
 import ar.edu.unq.epers.model.Reserva
 import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.List
+import java.util.ArrayList
 
 /**
  * La Clase Usuario representa a un usuario que querra registrarse en ingresar al
@@ -20,6 +22,7 @@ class Usuario implements IUsuario {
 	var Date fechaDeNacimiento
 	var String codigoDeValidacion
 	var Boolean estadoDeValidacion
+	var List<Reserva> reservas
 
 
 	/**
@@ -44,11 +47,13 @@ class Usuario implements IUsuario {
 		fechaDeNacimiento = unaFechaDeNacimiento;
 		codigoDeValidacion = null;
 		estadoDeValidacion = false;
+		reservas = new ArrayList
 	}
 	
 
 	override agregarReserva(Reserva unaReserva) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		
+		unaReserva.reservar()
 	}
 
 	override getReservas() {
@@ -62,5 +67,6 @@ class Usuario implements IUsuario {
 	def actualizarPassword(String nuevaPassword) {
 		this.password = nuevaPassword
 	}
+	
 	
 }
