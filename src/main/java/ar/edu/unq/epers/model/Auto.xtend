@@ -6,27 +6,30 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class Auto {
-	String marca
-	String modelo
-	Integer año
-	String patente
-	Double costoBase
-	Categoria categoria
+	public String marca
+	public String modelo
+	public Integer anio
+	public String patente
+	public Double costoBase
+	public Integer id
+	//Categoria categoria
 	
 	//Debe estar ordenado
-	List<Reserva> reservas = newArrayList()
+	//List<Reserva> reservas = newArrayList()
 	Ubicacion ubicacionInicial
+	
+	new(){}
 
-	new(String marca, String modelo, Integer anio, String patente, Categoria categoria, Double costoBase, Ubicacion ubicacionInicial){
+	new(String marca, String modelo, Integer anio, String patente, Double costoBase,Ubicacion ubicacionInicial){
 		this.marca = marca
 		this.modelo = modelo
-		this.año = anio
+		this.anio = anio
 		this.patente = patente
 		this.costoBase = costoBase
-		this.categoria = categoria
+		//this.categoria = categoria
 		this.ubicacionInicial = ubicacionInicial
 	}
-
+/* 
 	def getUbicacion(){
 		this.ubicacionParaDia(new Date());
 	}
@@ -53,5 +56,5 @@ class Auto {
 	def costoTotal(){
 		return categoria.calcularCosto(this)
 	}
-	
+	*/
 }

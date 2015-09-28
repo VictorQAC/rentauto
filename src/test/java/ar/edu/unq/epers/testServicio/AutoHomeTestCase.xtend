@@ -6,12 +6,12 @@ import ar.edu.unq.epers.model.Categoria
 import ar.edu.unq.epers.model.Familiar
 import ar.edu.unq.epers.model.Ubicacion
 import org.junit.Test
-import ar.edu.unq.epers.home.AutoHome
 import org.junit.Assert
+import ar.edu.unq.epers.servicio.AutoService
 
 class AutoHomeTestCase {
 	
-	var AutoHome autH
+	var AutoService autServ
 	var Auto auto1
 	var Categoria cat1
 	var Ubicacion ubic
@@ -19,16 +19,21 @@ class AutoHomeTestCase {
 	@Before
 	def void setUp(){
 		
-		autH = new AutoHome()
+		autServ = new AutoService()
 		cat1 = new Familiar()
 		ubic = new Ubicacion("Retiro")
-		auto1 = new Auto("Ford","Mustang",2000,"arg123",cat1,2.5,ubic)
+		//auto1 = new Auto("Ford","Mustang",2000,"arg123",cat1,2.5,ubic)
+	}
+	
+	@Before
+	def void startUp(){
+		new AutoService().crearAuto("Ford","Mustang",2000,"arg123",2.5,ubic)
 	}
 	
 	@Test
-	def void testSave(){
+	def void testCrear(){
 		
-		autH.save(auto1)
-		Assert.assertEquals(autH.get("arg123"),auto1)
+		auto1 = autServ.consultarAuto(1)
+		Assert.assertEquals(auto1.patente,"arg123")
 	}
 }

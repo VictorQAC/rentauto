@@ -6,21 +6,17 @@
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 
-        <property name="hibernate.connection.url">jdbc:mysql://localhost/RentautoTP2</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/RentAuto</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.password"></property>
 
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="show_sql">true</property>
 
-        <mapping resource="tpi/Auto.hbm.xml"></mapping>
-        <mapping resource="tpi/Ubicacion.hbm.xml"></mapping>
-        <mapping resource="tpi/Categoria.hbm.xml"></mapping>
-        <mapping resource="tpi/Reserva.hbm.xml"></mapping>
-        <mapping resource="tpi/Usuario.hbm.xml"></mapping>
-
-
+        <mapping resource="unq/tpi/persistencia/Auto.hbm.xml"></mapping>
+        <mapping resource="unq/tpi/persistencia/Ubicacion.hbm.xml"></mapping>
+        <mapping resource="unq/tpi/persistencia/Reservas.hbm.xml"></mapping>
 
     </session-factory>
 </hibernate-configuration>

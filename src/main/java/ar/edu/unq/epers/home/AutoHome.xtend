@@ -9,8 +9,8 @@ class AutoHome {
 		SessionManager.getSession().saveOrUpdate(unAuto)
 	}
 	
-	def Auto get(String patente){
+	def Auto get(int id){
 		
-		return SessionManager.getSession().get(typeof(Auto) ,patente) as Auto
+		return SessionManager.getSession().get(typeof(Auto) ,id) as Auto
 	}
 }
