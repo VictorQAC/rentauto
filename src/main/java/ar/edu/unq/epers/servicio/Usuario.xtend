@@ -54,6 +54,7 @@ class Usuario implements IUsuario {
 	override agregarReserva(Reserva unaReserva) {
 		
 		unaReserva.reservar()
+	
 	}
 
 	override getReservas() {
