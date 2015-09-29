@@ -12,21 +12,22 @@ class Auto {
 	public String patente
 	public Double costoBase
 	public Integer id
-	//Categoria categoria
+	Categoria categoria
+	
 	
 	//Debe estar ordenado
-	//List<Reserva> reservas = newArrayList()
+	List<Reserva> reservas = newArrayList()
 	Ubicacion ubicacionInicial
 	
 	new(){}
 
-	new(String marca, String modelo, Integer anio, String patente, Double costoBase,Ubicacion ubicacionInicial){
+	new(String marca, String modelo, Integer anio, String patente, Double costoBase,Ubicacion ubicacionInicial,Categoria categoria){
 		this.marca = marca
 		this.modelo = modelo
 		this.anio = anio
 		this.patente = patente
 		this.costoBase = costoBase
-		//this.categoria = categoria
+		this.categoria = categoria
 		this.ubicacionInicial = ubicacionInicial
 	}
 /* 

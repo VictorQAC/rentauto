@@ -16,7 +16,12 @@
 
         <mapping resource="unq/tpi/persistencia/Auto.hbm.xml"></mapping>
         <mapping resource="unq/tpi/persistencia/Ubicacion.hbm.xml"></mapping>
-        <mapping resource="unq/tpi/persistencia/Reservas.hbm.xml"></mapping>
+        <mapping resource="unq/tpi/persistencia/Reservas.hbm.xml"></mapping> 
+        <mapping resource="unq/tpi/persistencia/Usuario.hbm.xml"></mapping>
+        <mapping resource="unq/tpi/persistencia/Categoria.hbm.xml"></mapping>
+       
+       
+        
 
     </session-factory>
 </hibernate-configuration>

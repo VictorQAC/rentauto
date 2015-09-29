@@ -8,6 +8,7 @@ import ar.edu.unq.epers.model.Ubicacion
 import org.junit.Test
 import org.junit.Assert
 import ar.edu.unq.epers.servicio.AutoService
+import ar.edu.unq.epers.model.Deportivo
 
 class AutoHomeTestCase {
 	
@@ -17,17 +18,14 @@ class AutoHomeTestCase {
 	var Ubicacion ubic
 	
 	@Before
-	def void setUp(){
-		
-		autServ = new AutoService()
-		cat1 = new Familiar()
-		ubic = new Ubicacion("Retiro")
-		//auto1 = new Auto("Ford","Mustang",2000,"arg123",cat1,2.5,ubic)
-	}
-	
-	@Before
 	def void startUp(){
-		new AutoService().crearAuto("Ford","Mustang",2000,"arg123",2.5,ubic)
+		autServ = new AutoService()
+		cat1 = new Deportivo()
+		cat1.nombre = "algo"
+		ubic = new Ubicacion("Retiro")
+		
+		autServ.crearAuto("Ford","Mustang",2000,"arg123",2.5,ubic,cat1)
+		//autServ.crearAuto("Ford","Mondeo",2000,"arg123",2.5,ubic,cat1)
 	}
 	
 	@Test

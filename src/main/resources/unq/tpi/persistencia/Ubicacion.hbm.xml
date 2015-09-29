@@ -12,5 +12,10 @@
         <property name="nombre" type="string">
             <column name="nombre" length="40" not-null="true" unique="false" />
         </property>
+        
+        <joined-subclass name="ar.edu.unq.epers.model.UbicacionVirtual" table="ubicacion_vitural">
+        <key column="idUbicacion"/>
+        </joined-subclass>
+        
     </class>
 </hibernate-mapping>

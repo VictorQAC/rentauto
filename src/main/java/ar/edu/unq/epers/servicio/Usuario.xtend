@@ -13,7 +13,8 @@ import java.util.ArrayList
  */
 @Accessors
 class Usuario implements IUsuario {
-
+    
+    var Integer idUsuario
 	var String nombre
 	var String apellido
 	var String idNombre
@@ -37,8 +38,9 @@ class Usuario implements IUsuario {
 	 */
 	 new(){}
 	 
-	new(String unNombre, String unApellido, String unNombreDeUsuario,
+	new(Integer id,String unNombre, String unApellido, String unNombreDeUsuario,
 			String unEmail,String unPassword, Date unaFechaDeNacimiento) {
+		idUsuario = id
 		nombre = unNombre;
 		apellido = unApellido;
 		idNombre = unNombreDeUsuario;

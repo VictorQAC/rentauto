@@ -5,7 +5,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import static ar.edu.unq.epers.extensions.DateExtensions.*
 import org.joda.time.DateTime
 import org.joda.time.Days
-
+import ar.edu.unq.epers.servicio.Usuario
 
 @Accessors
 class Reserva {
@@ -15,9 +15,19 @@ class Reserva {
 	Date inicio
 	Date fin
 	Auto auto
-	IUsuario usuario
+	Usuario usuario
 
 	new(){}
+	
+	new(Integer numeroSolicitud,Ubicacion Origen,Ubicacion destino,Date inicio,Date fin, Auto auto,Usuario usuario){
+		this.numeroSolicitud = numeroSolicitud
+		this.origen = origen
+		this.destino = destino
+		this.inicio = inicio
+		this.fin = fin
+		this.auto = auto
+		this.usuario = usuario
+	}
 	
 	def costo() {
 		val cantidadDeDias = Days.daysBetween(new DateTime(inicio), new DateTime(fin)).days

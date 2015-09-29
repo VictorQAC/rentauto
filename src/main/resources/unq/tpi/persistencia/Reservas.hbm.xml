@@ -3,14 +3,10 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="ar.edu.unq.epers.model.Reserva" table="reservas">
-        <id name="idReserva" type="java.lang.Integer">
-            <column name="reserva_ID" />
+        <id name="numeroSolicitud" type="java.lang.Integer">
+            <column name="numeroSolicitud" />
             <generator class="identity" />
         </id>
-
-        <property name="numeroSolicitud" type="java.lang.Integer">
-            <column name="R_NUMERO_DE_SOLICITUD" not-null="true" unique="false" />
-        </property>
 
         <many-to-one name="origen" column="id_ubicacion_origen"
             not-null="true" cascade="all"/>
@@ -29,10 +25,10 @@
 
         <many-to-one name="auto" class="ar.edu.unq.epers.model.Auto" column="auto_Id" not-null="true" cascade="all"/>
 
-        <many-to-one name="usuario" class="ar.edu.unq.epers.model.IUsuario" column="id_usuario" not-null="false" cascade="all"/>
+        <many-to-one name="usuario" class="ar.edu.unq.epers.servicio.Usuario" column="id_usuario" not-null="false" cascade="all"/>
 
         <joined-subclass name="ar.edu.unq.epers.model.ReservaEmpresarial" table="reserva_empresarial">
-        <key column="id_Reserva"/>
+        <key column="numeroSolicitud"/>
         </joined-subclass>
     </class>
 
