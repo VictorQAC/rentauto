@@ -30,7 +30,7 @@ class Auto {
 		this.categoria = categoria
 		this.ubicacionInicial = ubicacionInicial
 	}
-/* 
+	 
 	def getUbicacion(){
 		this.ubicacionParaDia(new Date());
 	}
@@ -57,5 +57,4 @@ class Auto {
 	def costoTotal(){
 		return categoria.calcularCosto(this)
 	}
-	*/
 }

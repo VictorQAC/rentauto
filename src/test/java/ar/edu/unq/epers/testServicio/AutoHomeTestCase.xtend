@@ -9,6 +9,7 @@ import org.junit.Test
 import org.junit.Assert
 import ar.edu.unq.epers.servicio.AutoService
 import ar.edu.unq.epers.model.Deportivo
+import ar.edu.unq.epers.model.UbicacionVirtual
 
 class AutoHomeTestCase {
 	
@@ -33,5 +34,13 @@ class AutoHomeTestCase {
 		
 		auto1 = autServ.consultarAuto(1)
 		Assert.assertEquals(auto1.patente,"arg123")
+	}
+	
+	@Test
+	def void modificarUbicacion(){
+		var UbicacionVirtual ubc2 = new UbicacionVirtual("Avellaneda")
+		autServ.modificarUbicacion(1,ubc2)
+		var Auto auto2 = autServ.consultarAuto(1)
+		Assert.assertEquals(auto2.ubicacionInicial.nombre,ubc2.nombre)
 	}
 }
