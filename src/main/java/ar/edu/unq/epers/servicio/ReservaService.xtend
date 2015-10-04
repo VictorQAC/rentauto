@@ -23,7 +23,7 @@ class ReservaService {
 		SessionManager.runInSession([
 			var Reserva res = new Reserva(origen,destino,inicio,fin,auto,usuario)
 			new ReservaHome().save(res)
-			auto
+			res
       ])	
 	}
 	  

@@ -42,7 +42,6 @@ class ReservaServiceTestCase {
 	  fechaNac = new Date(1-03-2000)
 	  jose = new Usuario("jose","suarez","joss","josecito@hotmail","eramospocos",fechaNac)
 	  
-		
 	  resServ.crearReserva(1,origen,destino,fechaInicio,fechaFin,auto1,jose)
 	}
 	
@@ -50,8 +49,7 @@ class ReservaServiceTestCase {
 	@Test
 	def void consultaTest(){
 		
-		reserva = resServ.consultarReserva(1)
-		Assert.assertEquals(reserva.destino,destino)
+		Assert.assertEquals(resServ.consultarReserva(1).destino,destino)
 	}
 	
 	

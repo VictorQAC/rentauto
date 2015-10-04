@@ -21,6 +21,8 @@ abstract class Categoria {
 
 class Turismo extends Categoria{
 	
+	new(){}
+	
 	new(String nombreCat){
 		
 		nombre = nombreCat
@@ -37,6 +39,8 @@ class Turismo extends Categoria{
 
 class Familiar extends Categoria{
 	
+	new(){}
+	
 	new(String nombreCat){
 		
 		nombre = nombreCat
@@ -48,6 +52,8 @@ class Familiar extends Categoria{
 }
 
 class Deportivo extends Categoria{
+	
+	new(){}
 	
 	new(String nombreCat){
 		
@@ -64,6 +70,8 @@ class Deportivo extends Categoria{
 }
 
 class TodoTerreno extends Categoria{
+	
+	new(){}
 	
 	new(String nombreCat){
 		

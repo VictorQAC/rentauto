@@ -19,7 +19,7 @@ class Reserva {
 
 	new(){}
 	
-	new(Ubicacion Origen,Ubicacion destino,Date inicio,Date fin, Auto auto,Usuario usuario){
+	new(Ubicacion origen,Ubicacion destino,Date inicio,Date fin, Auto auto,Usuario usuario){
 		
 		this.origen = origen
 		this.destino = destino
