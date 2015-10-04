@@ -2,7 +2,7 @@ package ar.edu.unq.epers.servicio
 
 import ar.edu.unq.epers.model.IUsuario
 import ar.edu.unq.epers.model.Reserva
-import java.sql.Date
+import java.util.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
@@ -38,9 +38,9 @@ class Usuario implements IUsuario {
 	 */
 	 new(){}
 	 
-	new(Integer id,String unNombre, String unApellido, String unNombreDeUsuario,
+	new(String unNombre, String unApellido, String unNombreDeUsuario,
 			String unEmail,String unPassword, Date unaFechaDeNacimiento) {
-		idUsuario = id
+		
 		nombre = unNombre;
 		apellido = unApellido;
 		idNombre = unNombreDeUsuario;

@@ -9,4 +9,8 @@ class ReservaHome {
 		SessionManager.getSession().saveOrUpdate(unaReserva)
 	}
   	
+  	def Reserva get(int numeroSolic){
+		
+		return SessionManager.getSession().get(typeof(Reserva) ,numeroSolic) as Reserva
+	}
  }

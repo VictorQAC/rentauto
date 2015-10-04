@@ -21,7 +21,7 @@ class AutoHomeTestCase {
 	@Before
 	def void startUp(){
 		autServ = new AutoService()
-		cat1 = new Deportivo()
+		cat1 = new Deportivo("lujoso")
 		cat1.nombre = "algo"
 		ubic = new Ubicacion("Retiro")
 		

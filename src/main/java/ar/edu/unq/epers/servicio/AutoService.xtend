@@ -16,7 +16,7 @@ class AutoService {
 
 	def crearAuto(String marca, String modelo, Integer anio, String patente, Double costoBase,Ubicacion ubicacion,Categoria cat) {
 		SessionManager.runInSession([
-			var auto = new Auto(marca, modelo, anio,patente,costoBase,ubicacion,cat)
+			var auto = new Auto(marca, modelo, anio,patente,cat,costoBase,ubicacion)
 			new AutoHome().save(auto)
 			auto
 			

@@ -21,7 +21,7 @@ class Auto {
 	
 	new(){}
 
-	new(String marca, String modelo, Integer anio, String patente, Double costoBase,Ubicacion ubicacionInicial,Categoria categoria){
+	new(String marca, String modelo, Integer anio, String patente,Categoria categoria, Double costoBase,Ubicacion ubicacionInicial){
 		this.marca = marca
 		this.modelo = modelo
 		this.anio = anio

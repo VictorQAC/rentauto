@@ -4,24 +4,24 @@ import ar.edu.unq.epers.home.SessionManager
 import ar.edu.unq.epers.home.ReservaHome
 import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.Ubicacion
-import java.sql.Date
+import java.util.Date
 import ar.edu.unq.epers.model.Auto
 
 class ReservaService {
 	
-	def void guardar(Reserva unaReserva){
+	def consultarReserva(int numeroSolicitud){
 	       
 	       SessionManager.runInSession([
 			
-			new ReservaHome().save(unaReserva)
-			unaReserva
+			new ReservaHome().get(numeroSolicitud)
+			
 		])
 	 }
 	
 	def crearReserva(Integer numeroSolicitud,Ubicacion origen,Ubicacion destino,Date inicio,Date fin, Auto auto,Usuario usuario) {
 		
 		SessionManager.runInSession([
-			var Reserva res = new Reserva(numeroSolicitud,origen,destino,inicio,fin,auto,usuario)
+			var Reserva res = new Reserva(origen,destino,inicio,fin,auto,usuario)
 			new ReservaHome().save(res)
 			auto
       ])	

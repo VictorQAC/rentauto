@@ -19,8 +19,8 @@ class Reserva {
 
 	new(){}
 	
-	new(Integer numeroSolicitud,Ubicacion Origen,Ubicacion destino,Date inicio,Date fin, Auto auto,Usuario usuario){
-		this.numeroSolicitud = numeroSolicitud
+	new(Ubicacion Origen,Ubicacion destino,Date inicio,Date fin, Auto auto,Usuario usuario){
+		
 		this.origen = origen
 		this.destino = destino
 		this.inicio = inicio

@@ -30,7 +30,7 @@
         </property>
         
         <property name="codigoDeValidacion" type="string">
-            <column name="codigoDeValidacion" length="40" not-null="true" unique="false" />
+            <column name="codigoDeValidacion" length="40" not-null="false" unique="false" />
         </property>
         
     </class>

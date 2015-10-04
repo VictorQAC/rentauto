@@ -20,6 +20,12 @@ abstract class Categoria {
 
 
 class Turismo extends Categoria{
+	
+	new(String nombreCat){
+		
+		nombre = nombreCat
+	}
+	
 	override calcularCosto(Auto auto) {
 		if(auto.anio > 2000){
 			return auto.costoBase * 1.10			
@@ -30,12 +36,24 @@ class Turismo extends Categoria{
 }
 
 class Familiar extends Categoria{
+	
+	new(String nombreCat){
+		
+		nombre = nombreCat
+	}
+	
 	override calcularCosto(Auto auto) {
 		return auto.costoBase + 200
 	}
 }
 
 class Deportivo extends Categoria{
+	
+	new(String nombreCat){
+		
+		nombre = nombreCat
+	}
+	
 	override calcularCosto(Auto auto) {
 		if(auto.anio > 2000){
 			return auto.costoBase * 1.30			
@@ -46,6 +64,12 @@ class Deportivo extends Categoria{
 }
 
 class TodoTerreno extends Categoria{
+	
+	new(String nombreCat){
+		
+		nombre = nombreCat
+	}
+	
 	override calcularCosto(Auto auto) {
 		auto.costoBase * 1.10
 	}

@@ -2,13 +2,14 @@ package ar.edu.unq.epers.model
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.epers.servicio.Usuario
 
 @Accessors 
 class Empresa {
 	String cuit
 	String nombreEmpresa
 	
-	List<IUsuario> usuarios = newArrayList
+	List<Usuario> usuarios = newArrayList
 	List<Reserva> reservas = newArrayList
 
 	int cantidadMaximaDeReservasActivas
