@@ -12,7 +12,7 @@
             not-null="true" cascade="all"/>
 
         <many-to-one name="destino" column="id_ubicacion_destino"
-            not-null="true" cascade="all"/>
+            not-null="true" cascade="all" lazy = "false"/>
 
 
         <property name="inicio" type="timestamp">

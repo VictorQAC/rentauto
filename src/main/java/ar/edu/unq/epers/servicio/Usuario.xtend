@@ -2,7 +2,7 @@ package ar.edu.unq.epers.servicio
 
 import ar.edu.unq.epers.model.IUsuario
 import ar.edu.unq.epers.model.Reserva
-import java.util.Date
+import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList

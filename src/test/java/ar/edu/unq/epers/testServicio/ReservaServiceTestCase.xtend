@@ -8,8 +8,7 @@ import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.model.Familiar
 import ar.edu.unq.epers.model.Categoria
 import org.junit.Before
-import org.joda.time.DateTime
-import java.util.Date
+import java.sql.Date
 import org.junit.Test
 import org.junit.Assert
 
@@ -49,7 +48,8 @@ class ReservaServiceTestCase {
 	@Test
 	def void consultaTest(){
 		
-		Assert.assertEquals(resServ.consultarReserva(1).destino,destino)
+		reserva = resServ.consultarReserva(1)
+		Assert.assertEquals(reserva.destino.nombre,"La Plata")
 	}
 	
 	
