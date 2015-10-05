@@ -3,7 +3,6 @@ package ar.edu.unq.epers.model
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.epers.servicio.Usuario
-import java.sql.Date
 
 @Accessors 
 class Empresa {
@@ -52,9 +51,5 @@ class Empresa {
 		autos.add(unAuto)
 	}
 	
-	def autosDisponibles(Ubicacion unaUbicacion , Date unDia){
-		
-		autos.filter[estaEnLaUbicacion(unaUbicacion,unDia)]
-	}
 }
 

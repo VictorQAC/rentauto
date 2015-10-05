@@ -5,6 +5,7 @@ import ar.edu.unq.epers.home.AutoHome
 import ar.edu.unq.epers.model.Categoria
 import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Auto
+import java.util.List
 
 class AutoService {
 	
@@ -29,6 +30,12 @@ class AutoService {
 			auto.ubicacionInicial = ubicacion
 			auto
 		]);
+	}
+	
+	def List<Auto> autosExistentes(){
+		SessionManager.runInSession([
+			new AutoHome().getAll()
+		])
 	}
 	
 }

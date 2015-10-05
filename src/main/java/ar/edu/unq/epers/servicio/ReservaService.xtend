@@ -6,6 +6,8 @@ import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.Ubicacion
 import java.util.Date
 import ar.edu.unq.epers.model.Auto
+import ar.edu.unq.epers.model.Categoria
+import java.util.List
 
 class ReservaService {
 	
@@ -18,13 +20,19 @@ class ReservaService {
 		])
 	 }
 	
-	def crearReserva(Integer numeroSolicitud,Ubicacion origen,Ubicacion destino,Date inicio,Date fin, Auto auto,Usuario usuario) {
+	def crearReserva(Ubicacion origen,Ubicacion destino,Date inicio,Date fin, Auto auto,Usuario usuario) {
 		
 		SessionManager.runInSession([
 			var Reserva res = new Reserva(origen,destino,inicio,fin,auto,usuario)
 			new ReservaHome().save(res)
 			res
       ])	
+	}
+	
+	def List<Reserva> reservasPosibles(Ubicacion origen, Ubicacion destino, Date inicio, Date fin, Categoria categoria) {
+		SessionManager.runInSession([
+			new ReservaHome().getReservas(origen,destino,inicio,fin,categoria)
+      ])
 	}
 	  
 }

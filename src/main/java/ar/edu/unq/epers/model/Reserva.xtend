@@ -6,6 +6,7 @@ import static ar.edu.unq.epers.extensions.DateExtensions.*
 import org.joda.time.DateTime
 import org.joda.time.Days
 import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.servicio.ReservaService
 
 @Accessors
 class Reserva {
@@ -63,9 +64,10 @@ class Reserva {
 		return 0
 	}
 	
-	def reservar(){
+	def void reservar(){
 		this.auto.agregarReserva(this)
-
+		var ReservaService rs = new ReservaService()
+		rs.crearReserva(this.origen,this.destino,this.inicio,this.fin,this.auto,this.usuario)
 	}
 
 }

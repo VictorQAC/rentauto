@@ -10,11 +10,14 @@ import org.junit.Assert
 import ar.edu.unq.epers.servicio.AutoService
 import ar.edu.unq.epers.model.Deportivo
 import ar.edu.unq.epers.model.UbicacionVirtual
+import org.junit.After
+import ar.edu.unq.epers.home.SessionManager
 
 class AutoHomeTestCase {
 	
 	var AutoService autServ
 	var Auto auto1
+	var Auto auto2
 	var Categoria cat1
 	var Ubicacion ubic
 	
@@ -26,8 +29,13 @@ class AutoHomeTestCase {
 		ubic = new Ubicacion("Retiro")
 		
 		autServ.crearAuto("Ford","Mustang",2000,"arg123",2.5,ubic,cat1)
-		//autServ.crearAuto("Ford","Mondeo",2000,"arg123",2.5,ubic,cat1)
+		autServ.crearAuto("Ford","Mondeo",2000,"arg123",2.5,ubic,cat1)
 	}
+	
+	@After
+    def void limpiar() {
+        SessionManager::resetSessionFactory()
+}
 	
 	@Test
 	def void testCrear(){
@@ -42,5 +50,11 @@ class AutoHomeTestCase {
 		autServ.modificarUbicacion(1,ubc2)
 		var Auto auto2 = autServ.consultarAuto(1)
 		Assert.assertEquals(auto2.ubicacionInicial.nombre,ubc2.nombre)
+	}
+	
+	@Test
+	def void testAutosDisponibles(){
+		
+		Assert.assertEquals(autServ.autosExistentes().size,2)
 	}
 }

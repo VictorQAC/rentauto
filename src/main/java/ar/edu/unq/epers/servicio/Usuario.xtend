@@ -6,6 +6,9 @@ import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
+import ar.edu.unq.epers.model.Ubicacion
+import ar.edu.unq.epers.model.Auto
+import ar.edu.unq.epers.model.Categoria
 
 /**
  * La Clase Usuario representa a un usuario que querra registrarse en ingresar al
@@ -55,7 +58,7 @@ class Usuario implements IUsuario {
 
 	override agregarReserva(Reserva unaReserva) {
 		
-		unaReserva.reservar()
+		this.reservas.add(unaReserva)
 	
 	}
 
@@ -69,6 +72,24 @@ class Usuario implements IUsuario {
 	
 	def actualizarPassword(String nuevaPassword) {
 		this.password = nuevaPassword
+	}
+	
+	def List<Auto> autosDisponibles(Ubicacion unaUbicacion , Date unDia){
+		var AutoService ems = new AutoService()
+		var List<Auto> autos = ems.autosExistentes()
+		
+		return autos.filter[estaEnLaUbicacion(unaUbicacion,unDia)] as List<Auto>
+	}
+	
+	def void realizarReserva(Ubicacion origen,Ubicacion destino,Date inicio,Date fin, Auto auto){
+		var Reserva res = new Reserva(origen,destino,inicio,fin,auto,this)
+		res.reservar()
+		this.agregarReserva(res)
+	}
+	
+	def List<Reserva> reservasDisponibles(Ubicacion origen,Ubicacion destino,Date inicio,Date fin,Categoria categoria){
+		var ReservaService rs = new ReservaService()
+		return rs.reservasPosibles(origen,destino,inicio,fin,categoria)
 	}
 	
 	
