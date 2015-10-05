@@ -3,6 +3,7 @@ package ar.edu.unq.epers.model
 import org.junit.Test
 import static ar.edu.unq.epers.extensions.DateExtensions.*
 import static org.junit.Assert.*
+import java.sql.Date
 
 class EmpresaTest extends AbstractTest{
 	@Test
@@ -34,5 +35,6 @@ class EmpresaTest extends AbstractTest{
 		]
 		fail()
 	}
-
-}
+     
+    
+ }

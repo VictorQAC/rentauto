@@ -57,4 +57,9 @@ class Auto {
 	def costoTotal(){
 		return categoria.calcularCosto(this)
 	}
+	
+	def Boolean estaEnLaUbicacion(Ubicacion ubic, Date unDia){
+		
+		return ubicacionParaDia(unDia) == ubic
+	}
 }

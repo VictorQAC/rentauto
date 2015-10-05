@@ -65,7 +65,7 @@ class Reserva {
 	
 	def reservar(){
 		this.auto.agregarReserva(this)
-		this.usuario.agregarReserva(this)
+
 	}
 
 }
@@ -77,9 +77,16 @@ class ReservaEmpresarial extends Reserva{
 	String nombreContacto
 	String cargoContacto
 	
+	new(Empresa empresa,String nombreContacto,String cargoContacto){
+		
+		this.empresa = empresa
+		this.nombreContacto = nombreContacto
+		this.cargoContacto = cargoContacto
+	}
+	
 	override reservar(){
 		super.reservar()
-		this.empresa.agregarReserva(this)
+		empresa.agregarReserva(this)
 	}
 }
 

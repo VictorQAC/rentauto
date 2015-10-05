@@ -3,6 +3,7 @@ package ar.edu.unq.epers.model
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.epers.servicio.Usuario
+import java.sql.Date
 
 @Accessors 
 class Empresa {
@@ -15,8 +16,18 @@ class Empresa {
 	int cantidadMaximaDeReservasActivas
 	Double valorMaximoPorDia
 	List<Categoria> categoriasAdmitidas = newArrayList
+    List<Auto> autos = newArrayList
 	
-	def agregarReserva(Reserva unaReserva){
+	new(){}
+	
+	new(int cantidadDeReservas, Double valorMaximo){
+		
+		cantidadMaximaDeReservasActivas = cantidadDeReservas
+		valorMaximoPorDia = valorMaximo
+		
+	}
+	
+	def void agregarReserva(Reserva unaReserva){
 		unaReserva.validarReserva
 		reservas.add(unaReserva)
 	}
@@ -35,4 +46,15 @@ class Empresa {
 	def reservasActivas(){
 		reservas.filter[activa]
 	}
+	
+	def agregarAuto(Auto unAuto){
+		
+		autos.add(unAuto)
+	}
+	
+	def autosDisponibles(Ubicacion unaUbicacion , Date unDia){
+		
+		autos.filter[estaEnLaUbicacion(unaUbicacion,unDia)]
+	}
 }
+
