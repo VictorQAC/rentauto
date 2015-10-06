@@ -6,6 +6,7 @@ import ar.edu.unq.epers.model.Categoria
 import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Auto
 import java.util.List
+import java.sql.Date
 
 class AutoService {
 	
@@ -38,4 +39,14 @@ class AutoService {
 		])
 	}
 	
+	def List<Auto> autosPosibles(Date principio, Date fin, Ubicacion origen, Ubicacion destino, String categoria){
+		SessionManager.runInSession([
+			var List<Auto> list = new AutoHome().getAutosPosibles(principio,fin,categoria)
+		
+			return list.filter[ it.ubicacionParaDia(principio).nombre == origen.nombre && 
+								it.ubicacionParaDia(fin).nombre == destino.nombre] as List<Auto>
+		])
+		
+		
+	}
 }

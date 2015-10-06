@@ -4,6 +4,7 @@ import ar.edu.unq.epers.model.Auto
 import java.util.List
 import java.util.Date
 import ar.edu.unq.epers.model.Ubicacion
+import ar.edu.unq.epers.model.Categoria
 
 class AutoHome {
 	
@@ -25,5 +26,16 @@ class AutoHome {
 					
 		val query = SessionManager::getSession().createQuery("from Auto")
       	return query.list()
+	}
+	
+	def List<Auto> getAutosPosibles(Date principio, Date finalizacion,Categoria categoria) {
+		
+		val query = SessionManager::getSession().createQuery(("from Auto as auto 
+																left join auto.reservas as reserva 
+		 where reserva = null OR (:principio > reserva.final AND :finalizacion < reserva.inicial AND :categoria == reserva.auto.categoria.nombre))"))
+		query.setDate("principio",principio)
+		query.setDate("finalizacion",finalizacion)					    	
+		return query.list					  
+     	
 	}
 }

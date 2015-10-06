@@ -29,10 +29,5 @@ class ReservaService {
       ])	
 	}
 	
-	def List<Reserva> reservasPosibles(Ubicacion origen, Ubicacion destino, Date inicio, Date fin, Categoria categoria) {
-		SessionManager.runInSession([
-			new ReservaHome().getReservas(origen,destino,inicio,fin,categoria)
-      ])
-	}
 	  
 }

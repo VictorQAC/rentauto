@@ -12,6 +12,7 @@ import ar.edu.unq.epers.model.Deportivo
 import ar.edu.unq.epers.model.UbicacionVirtual
 import org.junit.After
 import ar.edu.unq.epers.home.SessionManager
+import java.sql.Date
 
 class AutoHomeTestCase {
 	
@@ -20,6 +21,11 @@ class AutoHomeTestCase {
 	var Auto auto2
 	var Categoria cat1
 	var Ubicacion ubic
+	var Ubicacion ubicacion
+	var Date fecha
+	var Date fecha2
+	
+	
 	
 	@Before
 	def void startUp(){
@@ -27,6 +33,9 @@ class AutoHomeTestCase {
 		cat1 = new Deportivo("lujoso")
 		cat1.nombre = "algo"
 		ubic = new Ubicacion("Retiro")
+		ubicacion = new Ubicacion("Palermo")
+		fecha = new Date(2015-12-1)
+		fecha2 = new Date(2015-12-3)
 		
 		autServ.crearAuto("Ford","Mustang",2000,"arg123",2.5,ubic,cat1)
 		autServ.crearAuto("Ford","Mondeo",2000,"arg123",2.5,ubic,cat1)
@@ -57,4 +66,17 @@ class AutoHomeTestCase {
 		
 		Assert.assertEquals(autServ.autosExistentes().size,2)
 	}
+	
+	@Test
+	def void autosPosiblesTest(){
+		
+		Assert.assertEquals(autServ.autosPosibles(ubic,ubicacion,fecha,fecha2,cat1).size,2)
+  	}
+	
+	@Test
+	def void reservasDisponiblesTest(){
+		
+		
+  	}
+
 }

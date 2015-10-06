@@ -87,10 +87,6 @@ class Usuario implements IUsuario {
 		this.agregarReserva(res)
 	}
 	
-	def List<Reserva> reservasDisponibles(Ubicacion origen,Ubicacion destino,Date inicio,Date fin,Categoria categoria){
-		var ReservaService rs = new ReservaService()
-		return rs.reservasPosibles(origen,destino,inicio,fin,categoria)
-	}
 	
 	
 }

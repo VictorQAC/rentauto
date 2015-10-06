@@ -18,19 +18,4 @@ class ReservaHome {
 		return SessionManager.getSession().get(typeof(Reserva) ,numeroSolic) as Reserva
 	}
 	
-	
-	def List<Reserva> getReservas(Ubicacion partida, Ubicacion llegada, Date principio, Date finalizacion, Categoria categoria) {
-		
-		val query = SessionManager::getSession().createQuery(("select from Reserva as Reserva join Reserva.autos.auto 
-                      
-					    (where reserva.origen = origen,
-							  reserva.destino = destino,  	
-                        	  reserva.inicio = principio,
-	 					      reserva.fin = finalizacion,
-							  reserva.auto.categoria = categoria"))
-
-      
-     	return query.list
-	}
-	
  }
