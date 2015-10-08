@@ -13,6 +13,9 @@ import ar.edu.unq.epers.model.UbicacionVirtual
 import org.junit.After
 import ar.edu.unq.epers.home.SessionManager
 import java.sql.Date
+import ar.edu.unq.epers.model.Reserva
+import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.servicio.ReservaService
 
 class AutoHomeTestCase {
 	
@@ -24,8 +27,11 @@ class AutoHomeTestCase {
 	var Ubicacion ubicacion
 	var Date fecha
 	var Date fecha2
-	
-	
+	var Date fecha3
+	var Date fecha4
+	var Reserva res
+	var Usuario pepe
+	var ReservaService resServ
 	
 	@Before
 	def void startUp(){
@@ -36,13 +42,33 @@ class AutoHomeTestCase {
 		ubicacion = new Ubicacion("Palermo")
 		fecha = new Date(2015-12-1)
 		fecha2 = new Date(2015-12-3)
+		fecha3 = new Date(2015-12-4)
+		fecha4 = new Date(2015-12-5)
+		
+		
 		
 		autServ.crearAuto("Ford","Mustang",2000,"arg123",2.5,ubic,cat1)
-		autServ.crearAuto("Ford","Mondeo",2000,"arg123",2.5,ubic,cat1)
+		autServ.crearAuto("Ford","Mondeo",2000,"arg123",2.5,ubicacion,cat1)
+		
+	   
+		
+		pepe = new Usuario("jorge","grillo","jgrillo","mail@hotmail.com"
+			,"123",new Date(10 / 11 / 1990))
+		resServ = new ReservaService()	
+		
+		
+		var Ubicacion ubc2 = new Ubicacion("Retiro")
+		var Ubicacion ubc3 = new Ubicacion("Palermo")
+		
+		auto2  = autServ.consultarAuto(1)
+		
+	    resServ.crearReserva(ubc2,ubc3,fecha,fecha2,auto2,pepe)
+	  
+		
 	}
 	
 	@After
-    def void limpiar() {
+    def void limpiarBase() {
         SessionManager::resetSessionFactory()
 }
 	
@@ -70,13 +96,18 @@ class AutoHomeTestCase {
 	@Test
 	def void autosPosiblesTest(){
 		
-		Assert.assertEquals(autServ.autosPosibles(ubic,ubicacion,fecha,fecha2,cat1).size,2)
+		/* Trate de agregar una reserva a un auto para probar el metodo "autos posibles" 
+		    la idea es que al reservar un auto, quedaria uno solo posible sin reservas. Y ese es el
+		    auto que deberia devolverme el metodo "autos posibles". Pero no logro hacer correr el test*/
+
+	    res = resServ.consultarReserva(1)	   
+	    
+	    auto2.agregarReserva(res)
+	    autServ.persistirAuto(auto2)
+	  
+		
+		Assert.assertEquals(autServ.autosPosibles(fecha3,fecha4,ubicacion,ubic,cat1.nombre).size,1)
   	}
 	
-	@Test
-	def void reservasDisponiblesTest(){
-		
-		
-  	}
-
+	
 }

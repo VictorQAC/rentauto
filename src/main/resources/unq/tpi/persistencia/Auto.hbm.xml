@@ -34,7 +34,12 @@
              not-null="true" cascade="all" lazy="false"/>
              
         <many-to-one name="categoria" column="id_Categoria"
-               not-null="true" cascade="all" lazy="false"/>     
+               not-null="true" cascade="all" lazy="false"/>   
+               
+         <bag name="reservas"  lazy="false">
+        <key column="auto_id" not-null="false"/>
+        <one-to-many class="ar.edu.unq.epers.model.Reserva"/>
+        </bag>      
 
     </class>
 </hibernate-mapping>

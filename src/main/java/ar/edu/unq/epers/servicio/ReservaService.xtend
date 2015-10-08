@@ -29,5 +29,16 @@ class ReservaService {
       ])	
 	}
 	
-	  
+	  def reservarReserva(Integer numeroSolicitud) {
+		
+		SessionManager.runInSession([
+			
+			//var rH = new ReservaHome() 
+			
+			var Reserva res = this.consultarReserva(numeroSolicitud)
+			res.reservar()
+			new ReservaHome().save(res)
+			res
+      ])	
+	}
 }

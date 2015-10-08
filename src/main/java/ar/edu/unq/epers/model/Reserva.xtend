@@ -38,7 +38,7 @@ class Reserva {
 	def void validar(){
 		val ubicacionInicial = auto.ubicacionParaDia(inicio)
 		
-		if(ubicacionInicial != origen)
+		if(ubicacionInicial.nombre != origen.nombre)
 			throw new ReservaException("El auto no tiene la ubicación de origen buscada")
 		
 		if(!auto.estaLibre(inicio, fin))
@@ -66,8 +66,8 @@ class Reserva {
 	
 	def void reservar(){
 		this.auto.agregarReserva(this)
-		var ReservaService rs = new ReservaService()
-		rs.crearReserva(this.origen,this.destino,this.inicio,this.fin,this.auto,this.usuario)
+		//var ReservaService rs = new ReservaService()
+		//rs.crearReserva(this.origen,this.destino,this.inicio,this.fin,this.auto,this.usuario)
 	}
 
 }
@@ -79,12 +79,6 @@ class ReservaEmpresarial extends Reserva{
 	String nombreContacto
 	String cargoContacto
 	
-	new(Empresa empresa,String nombreContacto,String cargoContacto){
-		
-		this.empresa = empresa
-		this.nombreContacto = nombreContacto
-		this.cargoContacto = cargoContacto
-	}
 	
 	override reservar(){
 		super.reservar()

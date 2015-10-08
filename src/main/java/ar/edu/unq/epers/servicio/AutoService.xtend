@@ -25,6 +25,15 @@ class AutoService {
 		]);
 	}
 	
+	def persistirAuto(Auto unAuto) {
+		SessionManager.runInSession([
+			
+			new AutoHome().save(unAuto)
+			unAuto
+			
+		]);
+	}
+	
 	def modificarUbicacion(int id, Ubicacion ubicacion) {
 		SessionManager.runInSession([
 			var auto = new AutoHome().get(id)
