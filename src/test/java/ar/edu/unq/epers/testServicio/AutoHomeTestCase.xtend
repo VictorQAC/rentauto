@@ -57,8 +57,8 @@ class AutoHomeTestCase {
 		resServ = new ReservaService()	
 		
 		
-		var Ubicacion ubc2 = new Ubicacion("Retiro")
-		var Ubicacion ubc3 = new Ubicacion("Palermo")
+		var Ubicacion ubc2 = new Ubicacion("Palermo")
+		var Ubicacion ubc3 = new Ubicacion("Retiro")
 		
 		auto2  = autServ.consultarAuto(1)
 		
@@ -90,22 +90,23 @@ class AutoHomeTestCase {
 	@Test
 	def void testAutosDisponibles(){
 		
-		Assert.assertEquals(autServ.autosExistentes().size,2)
+		/* funciona el mjs autosDisponibles
+		 */
+		Assert.assertEquals(autServ.autosDisponibles(ubic ,fecha2).size,1)
 	}
 	
 	@Test
 	def void autosPosiblesTest(){
-		
 		/* Trate de agregar una reserva a un auto para probar el metodo "autos posibles" 
 		    la idea es que al reservar un auto, quedaria uno solo posible sin reservas. Y ese es el
-		    auto que deberia devolverme el metodo "autos posibles". Pero no logro hacer correr el test*/
+		    auto que deberia devolverme el metodo "autos posibles". Pero no logro hacer correr el test
+		    * me tira un error que nose q es*/
 
-	    res = resServ.consultarReserva(1)	   
+	    res = resServ.consultarReserva(1)
 	    
 	    auto2.agregarReserva(res)
 	    autServ.persistirAuto(auto2)
 	  
-		
 		Assert.assertEquals(autServ.autosPosibles(fecha3,fecha4,ubicacion,ubic,cat1.nombre).size,1)
   	}
 	

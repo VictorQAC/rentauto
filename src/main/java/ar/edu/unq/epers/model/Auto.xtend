@@ -60,6 +60,6 @@ class Auto {
 	
 	def Boolean estaEnLaUbicacion(Ubicacion ubic, Date unDia){
 		
-		return ubicacionParaDia(unDia) == ubic
+		return ubicacionParaDia(unDia).nombre == ubic.nombre
 	}
 }

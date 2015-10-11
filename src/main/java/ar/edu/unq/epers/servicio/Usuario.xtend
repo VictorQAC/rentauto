@@ -74,13 +74,6 @@ class Usuario implements IUsuario {
 		this.password = nuevaPassword
 	}
 	
-	def List<Auto> autosDisponibles(Ubicacion unaUbicacion , Date unDia){
-		var AutoService ems = new AutoService()
-		var List<Auto> autos = ems.autosExistentes()
-		
-		return autos.filter[estaEnLaUbicacion(unaUbicacion,unDia)] as List<Auto>
-	}
-	
 	def void realizarReserva(Ubicacion origen,Ubicacion destino,Date inicio,Date fin, Auto auto){
 		var Reserva res = new Reserva(origen,destino,inicio,fin,auto,this)
 		res.reservar()

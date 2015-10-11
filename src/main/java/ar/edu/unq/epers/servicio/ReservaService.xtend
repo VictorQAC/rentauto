@@ -29,11 +29,9 @@ class ReservaService {
       ])	
 	}
 	
-	  def reservarReserva(Integer numeroSolicitud) {
+	def reservarReserva(Integer numeroSolicitud) {
 		
 		SessionManager.runInSession([
-			
-			//var rH = new ReservaHome() 
 			
 			var Reserva res = this.consultarReserva(numeroSolicitud)
 			res.reservar()
@@ -41,4 +39,10 @@ class ReservaService {
 			res
       ])	
 	}
+	
+	def realizarReserva(Ubicacion origen,Ubicacion destino,Date inicio,Date fin, Auto auto,Usuario usuario){
+		this.crearReserva(origen,destino,inicio,fin,auto,usuario)
+	}
+	
+	
 }

@@ -42,9 +42,10 @@ class AutoService {
 		]);
 	}
 	
-	def List<Auto> autosExistentes(){
+	def Iterable<Auto> autosDisponibles(Ubicacion unaUbicacion , Date unDia){
 		SessionManager.runInSession([
-			new AutoHome().getAll()
+			var Iterable<Auto> list = new AutoHome().getAll()
+			return list.filter[estaEnLaUbicacion(unaUbicacion,unDia)]
 		])
 	}
 	
