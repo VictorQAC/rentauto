@@ -16,7 +16,7 @@ class Auto {
 	
 	
 	//Debe estar ordenado
-	List<Reserva> reservas = newArrayList()
+	List<Reserva> reservas = newArrayList
 	Ubicacion ubicacionInicial
 	
 	new(){}
@@ -51,6 +51,7 @@ class Auto {
 	def agregarReserva(Reserva reserva){
 		reserva.validar
 		reservas.add(reserva)
+		print("agrego reserva")
 		reservas.sortInplaceBy[inicio]
 	}
 	
