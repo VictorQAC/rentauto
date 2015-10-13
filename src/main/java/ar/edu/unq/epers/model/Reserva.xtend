@@ -1,6 +1,6 @@
 package ar.edu.unq.epers.model
 
-import java.util.Date
+import java.sql.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import static ar.edu.unq.epers.extensions.DateExtensions.*
 import org.joda.time.DateTime
@@ -66,8 +66,7 @@ class Reserva {
 	
 	def void reservar(){
 		this.auto.agregarReserva(this)
-		//var ReservaService rs = new ReservaService()
-		//rs.crearReserva(this.origen,this.destino,this.inicio,this.fin,this.auto,this.usuario)
+		this.usuario.agregarReserva(this)
 	}
 
 }

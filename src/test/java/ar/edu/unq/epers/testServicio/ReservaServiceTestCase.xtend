@@ -14,6 +14,8 @@ import org.junit.Assert
 import java.util.List
 import org.junit.After
 import ar.edu.unq.epers.home.SessionManager
+import ar.edu.unq.epers.servicio.AutoService
+import ar.edu.unq.epers.servicio.UsuarioService
 
 class ReservaServiceTestCase {
 	 
@@ -29,6 +31,9 @@ class ReservaServiceTestCase {
 	var Date fechaInicio
 	var Date fechaFin
 	var Date fechaNac
+	var AutoService autoServ
+	var Usuario usuario
+	var UsuarioService userServ
 	
 	
 	@Before
@@ -45,10 +50,15 @@ class ReservaServiceTestCase {
 	  fechaFin = new Date(17-02-2015)
 	  fechaNac = new Date(1-03-2000)
 	  jose = new Usuario("jose","suarez","joss","josecito@hotmail","eramospocos",fechaNac)
+	  autoServ = new AutoService()
+	  //usuario = new Usuario("carlos","grillo","cargrillo","mail@hotmail.com","123",new Date(10 / 11 / 1990))
+	  userServ = new UsuarioService()
+	  userServ.guardarUsuario("carlos","grillo","cargrillo","mail@hotmail.com","123",new Date(10 / 11 / 1990))
 	  
+	  autoServ.crearAuto("Ford","Palio",2001,"abc234",15.25,origen,cat2) // auto1 en memoria
 	  resServ.crearReserva(origen,destino,fechaInicio,fechaFin,auto1,jose)
 	}
-	
+	 
 	@After
     def void limpiar() {
         SessionManager::resetSessionFactory()
@@ -62,17 +72,13 @@ class ReservaServiceTestCase {
 		Assert.assertEquals(reserva.destino.nombre,"La Plata")
 	}
 	
-	
 	@Test
-	def void realizarReservaTest(){
-		
-		//Assert.assertEquals(jose.reservas.length(),0)
-		jose.realizarReserva(origen,ubic,fechaInicio,fechaFin,auto1)
-		
-		//Assert.assertEquals(jose.reservas.length(),1)
-		
-		reserva = resServ.consultarReserva(2)
-		Assert.assertEquals(reserva.destino.nombre,"Florencio Varela")
+	def void gestionarReservaTest(){
+		Assert.assertEquals(autoServ.consultarAuto(1).reservas.length,0)
+		var user = userServ.consultarUsuario(1)
+		var car = autoServ.consultarAuto(1)
+		resServ.realizarReserva(origen,destino,fechaInicio,fechaFin,car,user)
+		Assert.assertEquals(autoServ.consultarAuto(1).reservas.length,1)
 	}
 	
 }

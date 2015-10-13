@@ -7,6 +7,7 @@ import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Auto
 import java.util.List
 import java.sql.Date
+import ar.edu.unq.epers.model.Reserva
 
 class AutoService {
 	
@@ -59,4 +60,11 @@ class AutoService {
 		
 		
 	}
+	
+	def void agregarReserva(Integer autoId, Reserva reserva) {
+		val autoActualizado = this.consultarAuto(autoId)
+		autoActualizado.agregarReserva(reserva)
+		this.persistirAuto(autoActualizado)
+	}
+	
 }
