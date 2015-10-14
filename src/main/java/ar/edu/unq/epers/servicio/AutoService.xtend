@@ -6,7 +6,7 @@ import ar.edu.unq.epers.model.Categoria
 import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Auto
 import java.util.List
-import java.sql.Date
+import java.util.Date
 import ar.edu.unq.epers.model.Reserva
 
 class AutoService {

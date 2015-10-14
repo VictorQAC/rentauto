@@ -40,23 +40,27 @@ class ReservaServiceTestCase {
 	def void StartUp(){
 	
 	  resServ = new ReservaService()
+	  
 	  origen = new Ubicacion("Constitucion")
 	  destino = new Ubicacion("La Plata")
-	  ubic = new Ubicacion("Florencio Varela")
+	  ubic = new Ubicacion("Constitucion")
+	  
 	  cat2 = new Familiar("familia")
-	  auto1 = new Auto("Fiat","Palio",2001,"abc234",cat2,15.25,origen)
-	  auto2 = new Auto("Ford","Escort",1989,"abc234",cat2,10.5,destino)
+	  
 	  fechaInicio = new Date(10-02-2015)
 	  fechaFin = new Date(17-02-2015)
 	  fechaNac = new Date(1-03-2000)
-	  jose = new Usuario("jose","suarez","joss","josecito@hotmail","eramospocos",fechaNac)
-	  autoServ = new AutoService()
-	  //usuario = new Usuario("carlos","grillo","cargrillo","mail@hotmail.com","123",new Date(10 / 11 / 1990))
-	  userServ = new UsuarioService()
-	  userServ.guardarUsuario("carlos","grillo","cargrillo","mail@hotmail.com","123",new Date(10 / 11 / 1990))
 	  
+	  jose = new Usuario("jose","suarez","joss","josecito@hotmail","eramospocos",fechaNac)
+	 
+	  autoServ = new AutoService() 
+	  userServ = new UsuarioService()
+	  
+	  userServ.guardarUsuario("carlos","grillo","cargrillo","mail@hotmail.com","123",fechaNac)
 	  autoServ.crearAuto("Ford","Palio",2001,"abc234",15.25,origen,cat2) // auto1 en memoria
-	  resServ.crearReserva(origen,destino,fechaInicio,fechaFin,auto1,jose)
+	  
+	  
+	
 	}
 	 
 	@After
@@ -68,17 +72,26 @@ class ReservaServiceTestCase {
 	@Test
 	def void consultaTest(){
 		
+		auto1 = autoServ.consultarAuto(1)
+		usuario =  userServ.consultarUsuario(1)
+		
+		resServ.crearReserva(ubic,destino,fechaInicio,fechaFin,auto1,usuario)
 		reserva = resServ.consultarReserva(1)
+		
 		Assert.assertEquals(reserva.destino.nombre,"La Plata")
 	}
 	
 	@Test
 	def void gestionarReservaTest(){
-		Assert.assertEquals(autoServ.consultarAuto(1).reservas.length,0)
-		var user = userServ.consultarUsuario(1)
-		var car = autoServ.consultarAuto(1)
-		resServ.realizarReserva(origen,destino,fechaInicio,fechaFin,car,user)
-		Assert.assertEquals(autoServ.consultarAuto(1).reservas.length,1)
+		
+		auto1 = autoServ.consultarAuto(1)
+		usuario =  userServ.consultarUsuario(1)
+		
+		Assert.assertEquals(auto1.reservas.size,0)
+		
+	    resServ.crearReserva(ubic,destino,fechaInicio,fechaFin,auto1,usuario)
+		
+		Assert.assertEquals(auto1.reservas.size,1)
 	}
 	
 }

@@ -4,7 +4,7 @@ import ar.edu.unq.epers.home.SessionManager
 import ar.edu.unq.epers.home.ReservaHome
 import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.Ubicacion
-import java.sql.Date
+import java.util.Date
 import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.model.Categoria
 import java.util.List
@@ -28,7 +28,7 @@ class ReservaService {
 		SessionManager.runInSession([
 			var Reserva res = new Reserva(origen,destino,inicio,fin,auto,usuario)
 			//autoService.agregarReserva(auto.id, res)
-			//res.reservar()
+			res.reservar()
 			//usuarioService.persistirUsuario(usuario)
 			new ReservaHome().save(res)
 			res

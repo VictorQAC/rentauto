@@ -51,7 +51,6 @@ class Auto {
 	def agregarReserva(Reserva reserva){
 		reserva.validar
 		reservas.add(reserva)
-		print("agrego reserva")
 		reservas.sortInplaceBy[inicio]
 	}
 	

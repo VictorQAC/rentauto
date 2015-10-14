@@ -2,7 +2,7 @@ package ar.edu.unq.epers.servicio
 
 import ar.edu.unq.epers.model.IUsuario
 import ar.edu.unq.epers.model.Reserva
-import java.sql.Date
+import java.util.Date
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.ArrayList
@@ -29,7 +29,10 @@ class Usuario implements IUsuario {
 	var List<Reserva> reservas
 
 
-	/**
+	
+	 new(){}
+	 
+	 /**
 	 * Constructor de la clase Usuario.
 	 * @param unNombre = Es el nombre que tendra el usuario.
 	 * @param unApellido = Es el apellido que tendra el usuario.
@@ -39,7 +42,7 @@ class Usuario implements IUsuario {
 	 * @param codigoDeValidacion = es el codigo para validar el usuario
 	 * @param estadoDeValidacion = booleano que indica el estado
 	 */
-	 new(){}
+	 
 	 
 	new(String unNombre, String unApellido, String unNombreDeUsuario,
 			String unEmail,String unPassword, Date unaFechaDeNacimiento) {
@@ -58,14 +61,14 @@ class Usuario implements IUsuario {
 
 	override agregarReserva(Reserva unaReserva) {
 		
-		unaReserva.validar
 		reservas.add(unaReserva)
 		reservas.sortInplaceBy[inicio]
 	
 	}
 
 	override getReservas() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		
+		return reservas
 	}
 	
 	def validate() {
@@ -76,11 +79,7 @@ class Usuario implements IUsuario {
 		this.password = nuevaPassword
 	}
 	
-	def void realizarReserva(Ubicacion origen,Ubicacion destino,Date inicio,Date fin, Auto auto){
-		var Reserva res = new Reserva(origen,destino,inicio,fin,auto,this)
-		res.reservar()
-		this.agregarReserva(res)
-	}
+	
 	
 	
 	

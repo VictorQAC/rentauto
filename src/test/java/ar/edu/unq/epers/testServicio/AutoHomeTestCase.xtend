@@ -12,7 +12,7 @@ import ar.edu.unq.epers.model.Deportivo
 import ar.edu.unq.epers.model.UbicacionVirtual
 import org.junit.After
 import ar.edu.unq.epers.home.SessionManager
-import java.sql.Date
+import java.util.Date
 import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.servicio.Usuario
 import ar.edu.unq.epers.servicio.ReservaService
@@ -104,15 +104,12 @@ class AutoHomeTestCase {
 
          var Ubicacion ubc2 = new Ubicacion("Palermo")
 		 var Ubicacion ubc3 = new Ubicacion("Retiro")
-		 var Ubicacion ubc4 = new Ubicacion("Retiro")
-	     var Auto auto2 = autServ.consultarAuto(2)	
+		
+	     auto2 = autServ.consultarAuto(2)	
 	     resServ.crearReserva(ubc2,ubc3,fecha,fecha2,auto2,pepe)
 	  
-	    
-	    res = resServ.consultarReserva(1)
 	   
-	    auto2.agregarReserva(res)
-	    autServ.persistirAuto(auto2)
+	  
 	  
 		Assert.assertEquals(autServ.autosPosibles(fecha3,fecha4,ubicacion,ubic,cat1.nombre).size,1)
   	}
