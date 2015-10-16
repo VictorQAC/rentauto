@@ -39,6 +39,7 @@ class ReservaServiceTestCase {
 	@Before
 	def void StartUp(){
 	
+
 	  resServ = new ReservaService()
 	  
 	  origen = new Ubicacion("Constitucion")
@@ -51,13 +52,13 @@ class ReservaServiceTestCase {
 	  fechaFin = new Date(17-02-2015)
 	  fechaNac = new Date(1-03-2000)
 	  
-	  jose = new Usuario("jose","suarez","joss","josecito@hotmail","eramospocos",fechaNac)
+
 	 
 	  autoServ = new AutoService() 
 	  userServ = new UsuarioService()
 	  
 	  userServ.guardarUsuario("carlos","grillo","cargrillo","mail@hotmail.com","123",fechaNac)
-	  autoServ.crearAuto("Ford","Palio",2001,"abc234",15.25,origen,cat2) // auto1 en memoria
+	  autoServ.crearAuto("Ford","Palio",2001,"abc234",15.25,origen,cat2)// auto1 en memoria
 	  
 	  
 	
@@ -68,9 +69,11 @@ class ReservaServiceTestCase {
         SessionManager::resetSessionFactory()
 	
 	}
-	
+	 
 	@Test
 	def void consultaTest(){
+		
+	
 		
 		auto1 = autoServ.consultarAuto(1)
 		usuario =  userServ.consultarUsuario(1)
@@ -83,6 +86,8 @@ class ReservaServiceTestCase {
 	
 	@Test
 	def void gestionarReservaTest(){
+		
+			
 		
 		auto1 = autoServ.consultarAuto(1)
 		usuario =  userServ.consultarUsuario(1)
