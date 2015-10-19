@@ -50,15 +50,13 @@ class AutoService {
 		])
 	}
 	
-	def List<Auto> autosPosibles(Date principio, Date fin, Ubicacion origen, Ubicacion destino, String categoria){
+	def Iterable<Auto> autosPosibles(Date principio, Date fin, Ubicacion origen, Ubicacion destino, Categoria categoria){
 		SessionManager.runInSession([
-			var List<Auto> list = new AutoHome().getAutosPosibles(principio,fin,categoria)
-		
+			var Iterable<Auto> list = new AutoHome().getAutosPosibles(principio,fin,categoria)
+			
 			return list.filter[ it.ubicacionParaDia(principio).nombre == origen.nombre && 
-								it.ubicacionParaDia(fin).nombre == destino.nombre] as List<Auto>
-		])
-		
-		
+							    it.ubicacionParaDia(fin).nombre == destino.nombre]
+		])	
 	}
 	
 	def void agregarReserva(Integer autoId, Reserva reserva) {

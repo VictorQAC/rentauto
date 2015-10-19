@@ -18,14 +18,14 @@ import ar.edu.unq.epers.servicio.Usuario
 import ar.edu.unq.epers.servicio.ReservaService
 
 
-class AutoHomeTestCase {
+class AutoServiceTestCase {
 	
 	var AutoService autServ
 	var Auto auto1
 	var Auto auto2
 	var Categoria cat1
-	var Ubicacion ubic
-	var Ubicacion ubicacion
+	var Ubicacion retiro
+	var Ubicacion palermo
 	var Date fecha
 	var Date fecha2
 	var Date fecha3
@@ -39,29 +39,19 @@ class AutoHomeTestCase {
 		autServ = new AutoService()
 		cat1 = new Deportivo("lujoso")
 		cat1.nombre = "algo"
-		ubic = new Ubicacion("Retiro")
-		ubicacion = new Ubicacion("Palermo")
+		retiro = new Ubicacion("Retiro")
+		palermo = new Ubicacion("Palermo")
 		fecha = new Date(2015,12,1)
 		fecha2 = new Date(2015,12,3)
 		fecha3 = new Date(2015,12,4)
 		fecha4 = new Date(2015,12,5)
 		
-		
-		
-		autServ.crearAuto("Ford","Mustang",2000,"arg123",2.5,ubic,cat1)
-		autServ.crearAuto("Ford","Mondeo",2000,"arg123",2.5,ubicacion,cat1)
-		
-	   
+		autServ.crearAuto("Ford","Mustang",2000,"arg123",2.5,retiro,cat1)
+		autServ.crearAuto("Ford","Mondeo",2000,"arg123",2.5,palermo,cat1)
 		
 		pepe = new Usuario("jorge","grillo","jgrillo","mail@hotmail.com"
 			,"123",new Date(10 / 11 / 1990))
 		resServ = new ReservaService()	
-		
-		
-		
-		
-		
-		
 		
 	}
 	
@@ -90,29 +80,16 @@ class AutoHomeTestCase {
 		
 		/* funciona el mjs autosDisponibles
 		 */
-		Assert.assertEquals(autServ.autosDisponibles(ubic ,fecha2).size,1)
+		Assert.assertEquals(autServ.autosDisponibles(retiro ,fecha2).size,1)
 	}
 	
 	@Test
 	def void autosPosiblesTest(){
-/* Trate de agregar una reserva a un auto para probar el metodo "autos posibles" 
-   la idea es que al reservar un auto, quedaria uno solo posible sin reservas. 
-   * Y ese es el auto que deberia devolverme el metodo "autos posibles". 
-   * Pero no logro hacer correr el test
-   * me tira un error que nose q es*/
-
-
-         var Ubicacion ubc2 = new Ubicacion("Palermo")
-		 var Ubicacion ubc3 = new Ubicacion("Retiro")
 		
-	     auto2 = autServ.consultarAuto(2)	
-	     resServ.crearReserva(ubc2,ubc3,fecha,fecha2,auto2,pepe)
-	  
-	   
-	  
-	  
-		Assert.assertEquals(autServ.autosPosibles(fecha3,fecha4,ubicacion,ubic,cat1.nombre).size,1)
+	     auto1 = autServ.consultarAuto(1)	
+	     auto2 = autServ.consultarAuto(2)
+	     resServ.crearReserva(auto2.ubicacion,auto1.ubicacion,fecha,fecha2,auto2,pepe)
+
+		Assert.assertEquals(autServ.autosPosibles(fecha3,fecha4,retiro, retiro,cat1).size,2)
   	}
-	
-	
 }

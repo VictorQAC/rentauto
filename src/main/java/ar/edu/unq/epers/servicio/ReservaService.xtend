@@ -27,12 +27,10 @@ class ReservaService {
 		
 		SessionManager.runInSession([
 			var Reserva res = new Reserva(origen,destino,inicio,fin,auto,usuario)
-			//autoService.agregarReserva(auto.id, res)
 			res.reservar()
-			//usuarioService.persistirUsuario(usuario)
 			new ReservaHome().save(res)
 			res
-      ])	
+      ]);	
 	}
 	
 	/*def void gestionarReserva(Usuario usuario, Auto auto, Ubicacion origen, Ubicacion destino, Date inicio, Date fin) {

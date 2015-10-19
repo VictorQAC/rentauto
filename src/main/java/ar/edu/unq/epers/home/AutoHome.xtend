@@ -19,22 +19,19 @@ class AutoHome {
 	}
 	
 	def List<Auto> getAll(){
-		/*val query = SessionManager::getSession().createQuery("from Auto as auto
-			join Auto.reservas as reserva 
-			where((reserva = null OR (inicio > reserva.final AND fin < reserva.inicial)) 
-					AND (reserva != null) OR (auto.ubicacion = origen))")*/
-					
+		
 		val query = SessionManager::getSession().createQuery("from Auto")
       	return query.list()
 	}
 	
-	def List<Auto> getAutosPosibles(Date principio, Date finalizacion,String categoria) {
+	def List<Auto> getAutosPosibles(Date principio, Date finalizacion, Categoria categoria) {
 		
-		val query = SessionManager::getSession().createQuery(("from Auto as auto left join auto.reservas as reserva where reserva == null OR (:principio > reserva.final AND :finalizacion < reserva.inicial AND :categoria == reserva.auto.categoria.nombre))"))
+		val query = SessionManager::getSession().createQuery("select auto from Auto as auto left join auto.reservas as reserva 
+						where ( reserva = null OR (:principio > reserva.fin OR :finalizacion < reserva.inicio) AND :categoria = auto.categoria))")
 		
 		query.setDate("principio",principio)
 		query.setDate("finalizacion",finalizacion)
-		query.setString("categoria",categoria)							    	
+		query.setEntity("categoria",categoria)							    	
 		return query.list					  
      	
 	}
