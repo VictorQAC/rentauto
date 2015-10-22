@@ -3,7 +3,7 @@ package ar.edu.unq.epers.testServicio
 import ar.edu.unq.epers.servicio.ReservaService
 import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.Ubicacion
-import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.model.Usuario
 import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.model.Familiar
 import ar.edu.unq.epers.model.Categoria
@@ -67,7 +67,7 @@ class ReservaServiceTestCase {
 	}
 	 
 	@Test
-	def void consultaTest(){
+	def void consultarRervaTest(){
 
 		auto1 = autoServ.consultarAuto(1)
 		usuario =  userServ.consultarUsuario(1)
@@ -89,6 +89,7 @@ class ReservaServiceTestCase {
 	    resServ.crearReserva(ubic,destino,fechaInicio,fechaFin,auto1,usuario)
 		
 		Assert.assertEquals(auto1.reservas.size,1)
+		Assert.assertNotEquals(resServ.consultarReserva(1),null)
 		
 	}	
 }

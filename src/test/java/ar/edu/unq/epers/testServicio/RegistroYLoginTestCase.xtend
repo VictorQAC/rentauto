@@ -6,9 +6,8 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import static org.mockito.Mockito.*;
-import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.model.Usuario
 import ar.edu.unq.epers.servicio.RegistroyLogin
-import ar.edu.unq.epers.home.UsuarioHome
 import ar.edu.unq.epers.servicio.EnviadorDeMails
 import ar.edu.unq.epers.excepciones.UsuarioExisteException
 import ar.edu.unq.epers.excepciones.UsuarioNoExisteException
@@ -16,13 +15,14 @@ import ar.edu.unq.epers.excepciones.NuevaPasswordInvalidaException
 import ar.edu.unq.epers.excepciones.ValidacionException
 import ar.edu.unq.epers.servicio.Mail
 import ar.edu.unq.epers.servicio.GeneradorDeCodigo
+import ar.edu.unq.epers.home.UsuarioHomeSQL
 
 class RegistroYLoginTestCase {
 	
 	var Usuario user
 	var Usuario user2
 	var RegistroyLogin sist
-	var UsuarioHome mockHome
+	var UsuarioHomeSQL mockHome
 	var EnviadorDeMails mockEnv
 	var Mail            mockMail
 	var GeneradorDeCodigo mockGenerador
@@ -36,7 +36,7 @@ class RegistroYLoginTestCase {
 			,"122",new Date(10 / 12 / 1993))
 			
 			
-		mockHome = mock(UsuarioHome)
+		mockHome = mock(UsuarioHomeSQL)
 		mockEnv = mock(EnviadorDeMails)
 		mockGenerador = mock(GeneradorDeCodigo)
 		sist = new RegistroyLogin(mockHome,mockEnv,mockGenerador)

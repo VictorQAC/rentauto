@@ -14,7 +14,7 @@ import org.junit.After
 import ar.edu.unq.epers.home.SessionManager
 import java.util.Date
 import ar.edu.unq.epers.model.Reserva
-import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.model.Usuario
 import ar.edu.unq.epers.servicio.ReservaService
 
 
@@ -78,8 +78,6 @@ class AutoServiceTestCase {
 	@Test
 	def void testAutosDisponibles(){
 		
-		/* funciona el mjs autosDisponibles
-		 */
 		Assert.assertEquals(autServ.autosDisponibles(retiro ,fecha2).size,1)
 	}
 	

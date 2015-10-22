@@ -1,20 +1,21 @@
 package ar.edu.unq.epers.servicio
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import ar.edu.unq.epers.home.UsuarioHome
 import ar.edu.unq.epers.excepciones.ValidacionException
 import ar.edu.unq.epers.excepciones.UsuarioExisteException
 import ar.edu.unq.epers.excepciones.NuevaPasswordInvalidaException
 import ar.edu.unq.epers.excepciones.UsuarioNoExisteException
+import ar.edu.unq.epers.home.UsuarioHomeSQL
+import ar.edu.unq.epers.model.Usuario
 
 @Accessors
 class RegistroyLogin {
 
-	var UsuarioHome uh 
+	var UsuarioHomeSQL uh 
 	var EnviadorDeMails em 
 	var GeneradorDeCodigo gen
 	
-	new(UsuarioHome usHome, EnviadorDeMails enMail,GeneradorDeCodigo genCod){
+	new(UsuarioHomeSQL usHome, EnviadorDeMails enMail,GeneradorDeCodigo genCod){
 		uh = usHome
 		em = enMail
 		gen = genCod

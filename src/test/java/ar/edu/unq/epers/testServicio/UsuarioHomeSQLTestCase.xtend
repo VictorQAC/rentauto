@@ -6,18 +6,18 @@ import java.sql.Date
 import org.junit.Before
 import org.junit.Assert
 import org.junit.Test
-import ar.edu.unq.epers.home.UsuarioHome
-import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.model.Usuario
+import ar.edu.unq.epers.home.UsuarioHomeSQL
 
 class UsuarioHomeTestCase {
 	
-	var UsuarioHome usuarioHome;
+	var UsuarioHomeSQL usuarioHome;
 	var Usuario user
 	var Usuario user2
 	
 	@Before
 	def void setUp(){
-		usuarioHome = new UsuarioHome()
+		usuarioHome = new UsuarioHomeSQL()
 		user = new Usuario("jorge","grillo","jgrillo","mail@hotmail.com"
 			,"123",new Date(10 / 11 / 1990))
 		user2 = new Usuario("pedro","grillo","pgrillo","mailP@hotmail.com"

@@ -3,6 +3,7 @@ package ar.edu.unq.epers.servicio
 import ar.edu.unq.epers.home.SessionManager
 import ar.edu.unq.epers.home.UsuarioHomeH
 import java.sql.Date
+import ar.edu.unq.epers.model.Usuario
 
 class UsuarioService {
 	

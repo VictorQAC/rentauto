@@ -5,10 +5,10 @@ import java.sql.DriverManager
 import java.sql.PreparedStatement
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.sql.ResultSet
-import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.model.Usuario
 
 @Accessors
-class UsuarioHome {
+class UsuarioHomeSQL {
 	new(){}
 	
 	/**
@@ -16,7 +16,7 @@ class UsuarioHome {
 	 */
 	private def Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password=root");
+		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password=");
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class UsuarioHome {
 			ps.setString(3, usuario.idNombre);
 			ps.setString(4, usuario.password);
 			ps.setString(5, usuario.email);
-			ps.setDate(6, usuario.fechaDeNacimiento);
+			//ps.setDate(6, usuario.fechaDeNacimiento);
 			ps.setString(7, usuario.codigoDeValidacion);
 			ps.setBoolean(8, usuario.estadoDeValidacion);
 			ps.executeUpdate();
@@ -237,7 +237,7 @@ class UsuarioHome {
 			ps.setString(1,user.nombre)
 			ps.setString(2,user.apellido)
 			ps.setString(3,user.password)
-			ps.setDate(4,user.fechaDeNacimiento)
+			//ps.setDate(4,user.fechaDeNacimiento)
 			ps.setString(5,user.email)
 			ps.setString(6,user.codigoDeValidacion)
 			ps.setBoolean(7,user.estadoDeValidacion)

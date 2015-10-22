@@ -2,7 +2,7 @@ package ar.edu.unq.epers.model
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.model.Usuario
 
 @Accessors 
 class Empresa {

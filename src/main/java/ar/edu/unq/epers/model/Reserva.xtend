@@ -5,7 +5,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import static ar.edu.unq.epers.extensions.DateExtensions.*
 import org.joda.time.DateTime
 import org.joda.time.Days
-import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.model.Usuario
 import ar.edu.unq.epers.servicio.ReservaService
 
 @Accessors

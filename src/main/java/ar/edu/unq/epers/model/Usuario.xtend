@@ -1,4 +1,4 @@
-package ar.edu.unq.epers.servicio
+package ar.edu.unq.epers.model
 
 import ar.edu.unq.epers.model.IUsuario
 import ar.edu.unq.epers.model.Reserva

@@ -2,7 +2,7 @@ package ar.edu.unq.epers.model
 
 import org.junit.Before
 import static org.mockito.Mockito.*
-import ar.edu.unq.epers.servicio.Usuario
+import ar.edu.unq.epers.model.Usuario
 
 class AbstractTest {
 	protected Auto auto
