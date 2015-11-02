@@ -58,7 +58,7 @@ class AutoServiceTestCase {
 	@After
     def void limpiarBase() {
         SessionManager::resetSessionFactory()
-}
+	}
 	
 	@Test
 	def void testCrear(){

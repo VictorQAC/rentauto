@@ -4,6 +4,7 @@ import org.neo4j.graphdb.GraphDatabaseService
 import ar.edu.unq.epers.home.RedSocialHome
 import ar.edu.unq.epers.model.Usuario
 import ar.edu.unq.epers.model.TipoDeAmistad
+import ar.edu.unq.epers.model.UsuarioNeo
 
 class RedSocialService {
 	
@@ -11,21 +12,21 @@ class RedSocialService {
 		new RedSocialHome(graph)
 	}
 	
-	def crearUsuario(Usuario user) {
+	def crearUsuario(UsuarioNeo user) {
 		GraphServiceRunner::run[
 			createHome(it).crearNodo(user); 
 			null
 		]
 	}
 	
-	def eliminarUsuario(Usuario user) {
+	def eliminarUsuario(UsuarioNeo user) {
 		GraphServiceRunner::run[
 			createHome(it).eliminarNodo(user)
 			null
 		]
 	}
 	
-	def amigoDe(Usuario user1, Usuario user2) {
+	def amigoDe(UsuarioNeo user1, UsuarioNeo user2) {
 		GraphServiceRunner::run[
 			val home = createHome(it);
 			home.relacionar(user1, user2, TipoDeAmistad.AMIGO)
@@ -33,7 +34,7 @@ class RedSocialService {
 		]
 	}
 	
-	def amigos(Usuario user) {
+	def amigos(UsuarioNeo user) {
 		GraphServiceRunner::run[
 			val home = createHome(it)
 			home.getAmigos(user)

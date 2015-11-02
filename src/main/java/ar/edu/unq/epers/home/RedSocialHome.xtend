@@ -10,6 +10,7 @@ import org.neo4j.graphdb.Direction
 import java.util.Date
 import java.util.List
 import ar.edu.unq.epers.model.Reserva
+import ar.edu.unq.epers.model.UsuarioNeo
 
 class RedSocialHome {
 	GraphDatabaseService graph
@@ -22,7 +23,7 @@ class RedSocialHome {
 		DynamicLabel.label("User")
 	}
 	
-	def crearNodo(Usuario user) {
+	def crearNodo(UsuarioNeo user) {
 		val node = this.graph.createNode(userLabel)
 		//node.setProperty("idUsuario", user.idUsuario)
 		node.setProperty("nombre", user.nombre)
@@ -32,31 +33,35 @@ class RedSocialHome {
 		node.setProperty("email", user.email)
 		//node.setProperty("fechaDeNacimiento", user.fechaDeNacimiento)
 		//node.setProperty("codigoDeValidacion", user.codigoDeValidacion)
-		node.setProperty("estadoDeValidacion", user.estadoDeValidacion)
-		node.setProperty("reservas", user.reservas)
+		//node.setProperty("estadoDeValidacion", user.estadoDeValidacion)
+		//node.setProperty("reservas", user.reservas)
 	}
 	
-	def eliminarNodo(Usuario user) {
+	def eliminarNodo(UsuarioNeo user) {
 		val nodo = this.getNodo(user)
 		nodo.relationships.forEach[delete]
 		nodo.delete
 	}
 	
-	def getNodo(Usuario user) {
+	def getNodo(UsuarioNeo user) {
 		this.getNodo(user.idNombre)
 	}
 	
 	def getNodo(String idNombre) {
-		this.graph.findNodes(userLabel, "idUsuario", idNombre).head
+		this.graph.findNodes(userLabel, "idNombre", idNombre).head
 	}
 	
-	def relacionar(Usuario user1, Usuario user2, TipoDeAmistad amistad) {
+	def relacionar(UsuarioNeo user1, UsuarioNeo user2, TipoDeAmistad amistad) {
 		val nodo1 = this.getNodo(user1);
 		val nodo2 = this.getNodo(user2);
 		nodo1.createRelationshipTo(nodo2, amistad);
 	}
 	
-	def getAmigos(Usuario user) {
+	protected def nodosRelacionados(Node nodo, RelationshipType tipo, Direction direccion) {
+		nodo.getRelationships(tipo, direccion).map[it.getOtherNode(nodo)]
+	}
+	
+	def getAmigos(UsuarioNeo user) {
 		
 		val nodoUsuario = this.getNodo(user)
 		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeAmistad.AMIGO, Direction.OUTGOING)
@@ -64,12 +69,10 @@ class RedSocialHome {
 		
 	}
 	
-	protected def nodosRelacionados(Node nodo, RelationshipType tipo, Direction direccion) {
-		nodo.getRelationships(tipo, direccion).map[it.getOtherNode(nodo)]
-	}
+	
 	
 	private def toUsuario(Node nodo) {
-		new Usuario => [
+		new UsuarioNeo => [
 			//idUsuario = nodo.getProperty("idUsuario") as Integer
 			nombre = nodo.getProperty("nombre") as String
 			apellido = nodo.getProperty("apellido") as String
@@ -78,8 +81,8 @@ class RedSocialHome {
 			email = nodo.getProperty("email") as String
 			//fechaDeNacimiento = nodo.getProperty("fechaDeNacimiento") as Date
 			//codigoDeValidacion = nodo.getProperty("codigoDeValidacion") as String
-			estadoDeValidacion = nodo.getProperty("estadoDeValidacion") as Boolean
-			reservas = nodo.getProperty("reservas") as List<Reserva>
+			//estadoDeValidacion = nodo.getProperty("estadoDeValidacion") as Boolean
+			//reservas = nodo.getProperty("reservas") as List<Reserva>
 		]
 	}
 }
