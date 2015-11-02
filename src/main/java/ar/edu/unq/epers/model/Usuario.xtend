@@ -17,14 +17,14 @@ import ar.edu.unq.epers.model.Categoria
 @Accessors
 class Usuario implements IUsuario {
     
-    var Integer idUsuario
+    //var Integer idUsuario
 	var String nombre
 	var String apellido
 	var String idNombre
 	var String password
 	var String email
-	var Date fechaDeNacimiento
-	var String codigoDeValidacion
+	//var Date fechaDeNacimiento
+	//var String codigoDeValidacion
 	var Boolean estadoDeValidacion
 	var List<Reserva> reservas
 
@@ -45,15 +45,15 @@ class Usuario implements IUsuario {
 	 
 	 
 	new(String unNombre, String unApellido, String unNombreDeUsuario,
-			String unEmail,String unPassword, Date unaFechaDeNacimiento) {
+			String unEmail,String unPassword) {
 		
 		nombre = unNombre;
 		apellido = unApellido;
 		idNombre = unNombreDeUsuario;
 		password = unPassword;
 		email = unEmail;
-		fechaDeNacimiento = unaFechaDeNacimiento;
-		codigoDeValidacion = null;
+		//fechaDeNacimiento = unaFechaDeNacimiento;
+		//codigoDeValidacion = null;
 		estadoDeValidacion = false;
 		reservas = new ArrayList
 	}
