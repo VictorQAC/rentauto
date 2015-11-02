@@ -55,7 +55,7 @@ class UsuarioHomeTestCase {
 	
 	@Test
 	def void actualizarPasswordTest(){
-		usuarioHome.borrarDatos()
+		//usuarioHome.borrarDatos()
 		usuarioHome.guardar(user)
 		Assert.assertEquals(usuarioHome.getPassword("jgrillo"),"123")
 		usuarioHome.actualizarPassword("jgrillo","222")

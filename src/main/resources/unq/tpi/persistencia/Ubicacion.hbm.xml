@@ -14,7 +14,13 @@
         </property>
         
         <joined-subclass name="ar.edu.unq.epers.model.UbicacionVirtual" table="ubicacion_virtual" >
-        <key column="idUbicacion"/>
+        <key column="id_Ubicacion"/>
+        
+         <bag name="ubicaciones">
+        <key column="idUbicacionVirtual" not-null="false" />
+        <one-to-many class="ar.edu.unq.epers.model.Ubicacion" />
+        </bag>
+        
         </joined-subclass>
         
     </class>

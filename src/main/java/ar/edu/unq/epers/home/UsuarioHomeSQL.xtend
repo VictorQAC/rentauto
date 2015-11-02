@@ -16,7 +16,7 @@ class UsuarioHomeSQL {
 	 */
 	private def Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password=");
+		return DriverManager.getConnection("jdbc:mysql://localhost/RentAuto?user=root&password=root");
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class UsuarioHomeSQL {
 			ps.setString(3, usuario.idNombre);
 			ps.setString(4, usuario.password);
 			ps.setString(5, usuario.email);
-			//ps.setDate(6, usuario.fechaDeNacimiento);
+			ps.setDate(6, usuario.fechaDeNacimiento);
 			ps.setString(7, usuario.codigoDeValidacion);
 			ps.setBoolean(8, usuario.estadoDeValidacion);
 			ps.executeUpdate();

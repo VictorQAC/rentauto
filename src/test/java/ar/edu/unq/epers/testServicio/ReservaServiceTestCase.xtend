@@ -67,7 +67,7 @@ class ReservaServiceTestCase {
 	}
 	 
 	@Test
-	def void consultarRervaTest(){
+	def void consultarReservaTest(){
 
 		auto1 = autoServ.consultarAuto(1)
 		usuario =  userServ.consultarUsuario(1)
