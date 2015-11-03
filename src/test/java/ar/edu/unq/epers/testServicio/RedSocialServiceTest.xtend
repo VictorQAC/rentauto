@@ -8,12 +8,14 @@ import org.junit.Assert
 import ar.edu.unq.epers.servicio.RedSocialService
 import ar.edu.unq.epers.model.UsuarioNeo
 import org.junit.After
+import ar.edu.unq.epers.model.Mensaje
 
 class RedSocialServiceTest {
 	UsuarioNeo Juan
 	UsuarioNeo Pedro
 	UsuarioNeo Marta
 	RedSocialService service
+	Mensaje mensaje
 	
 	@Before
 	def void setUp(){
@@ -23,10 +25,14 @@ class RedSocialServiceTest {
 			,"456")
 		Marta = new UsuarioNeo("Marta","Gonzalez","mgonzalez","mail@hotmail.com"
 			,"789")	
+		
+		mensaje = new Mensaje("Hola como andas?")	
+			
 		service = new RedSocialService
 		service.crearUsuario(Juan)
 		service.crearUsuario(Pedro)
 		service.crearUsuario(Marta)
+		service.crearMensaje(mensaje)
 	}
 	
 	@After
@@ -34,6 +40,7 @@ class RedSocialServiceTest {
         service.eliminarUsuario(Juan)
         service.eliminarUsuario(Pedro)
         service.eliminarUsuario(Marta)
+        service.eliminarMensaje(mensaje)
 	}
 	
 	@Test
@@ -52,6 +59,14 @@ class RedSocialServiceTest {
 		//Assert.assertEquals(padres.head, padre)
 	}
 	
+	@Test
+	def void envioDeMensaje(){
+		
+		service.enviarMensaje(Juan,Pedro,mensaje)
+		val msjs = service.getMensajesRecibidos(Pedro,mensaje)
+		
+		Assert.assertEquals(1, msjs.length)
+	}
 	
 	
 }

@@ -5,6 +5,8 @@ import ar.edu.unq.epers.home.RedSocialHome
 import ar.edu.unq.epers.model.Usuario
 import ar.edu.unq.epers.model.TipoDeAmistad
 import ar.edu.unq.epers.model.UsuarioNeo
+import ar.edu.unq.epers.model.Mensaje
+import ar.edu.unq.epers.model.EnvioDeMensaje
 
 class RedSocialService {
 	
@@ -41,4 +43,34 @@ class RedSocialService {
 		]
 	}
 	
+	def enviarMensaje(UsuarioNeo remitente,UsuarioNeo destinatario,Mensaje msj){
+		GraphServiceRunner::run[
+			val home = createHome(it);
+			home.crearNodoMensaje(msj)
+			home.envioOReseccionMjs(msj, remitente, EnvioDeMensaje.REMITENTE)
+			home.envioOReseccionMjs(msj, destinatario, EnvioDeMensaje.DESTINATARIO)
+		]
+	}
+	
+	def getMensajesRecibidos(UsuarioNeo user, Mensaje msj){
+		
+		GraphServiceRunner::run[
+			val home = createHome(it)
+			home.getMensajes(user,msj)
+		]
+	}
+	
+	def eliminarMensaje(Mensaje msj) {
+		GraphServiceRunner::run[
+			createHome(it).eliminarNodoMensaje(msj)
+			null
+		]
+	}
+	
+	def crearMensaje(Mensaje msj) {
+		GraphServiceRunner::run[
+			createHome(it).crearNodoMensaje(msj); 
+			null
+		]
+	}
 }

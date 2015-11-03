@@ -11,6 +11,8 @@ import java.util.Date
 import java.util.List
 import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.UsuarioNeo
+import ar.edu.unq.epers.model.EnvioDeMensaje
+import ar.edu.unq.epers.model.Mensaje
 
 class RedSocialHome {
 	GraphDatabaseService graph
@@ -85,4 +87,47 @@ class RedSocialHome {
 			//reservas = nodo.getProperty("reservas") as List<Reserva>
 		]
 	}
+	
+	def envioOReseccionMjs(Mensaje msj,UsuarioNeo user,EnvioDeMensaje edm) {
+		val nodo1 = this.getNodoMensaje(msj);
+		val nodo2 = this.getNodo(user);
+		nodo1.createRelationshipTo(nodo2, edm);
+	}
+	
+	def getNodoMensaje(Mensaje msj) {
+		this.getNodoMensaje(msj.texto)
+	}
+	
+	def getNodoMensaje(String texto) {
+		this.graph.findNodes(userLabel, "texto", texto).head
+	}
+	
+	def crearNodoMensaje(Mensaje mensaje) {
+		val node = this.graph.createNode(userLabel)
+		node.setProperty("texto", mensaje.texto)
+	}
+	
+	private def toMensaje(Node nodo) {
+		new Mensaje => [
+			texto = nodo.getProperty("texto") as String
+		]
+	}
+	
+	def getMensajes(UsuarioNeo user, Mensaje msj) {
+		
+		val nodoUsuario = this.getNodo(user)
+		val nodoMensaje = this.getNodoMensaje(msj)
+		
+		val nodoMensajes = this.nodosRelacionados(nodoUsuario, EnvioDeMensaje.DESTINATARIO, Direction.INCOMING)
+		nodoMensajes.map[toMensaje].toSet
+		
+	}
+	
+	def eliminarNodoMensaje(Mensaje msj) {
+		
+		val nodo = this.getNodoMensaje(msj)
+		nodo.relationships.forEach[delete]
+		nodo.delete
+	}
+	
 }
