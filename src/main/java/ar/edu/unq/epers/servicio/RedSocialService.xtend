@@ -7,6 +7,7 @@ import ar.edu.unq.epers.model.TipoDeAmistad
 import ar.edu.unq.epers.model.UsuarioNeo
 import ar.edu.unq.epers.model.Mensaje
 import ar.edu.unq.epers.model.EnvioDeMensaje
+import java.util.List
 
 class RedSocialService {
 	
@@ -72,5 +73,15 @@ class RedSocialService {
 			createHome(it).crearNodoMensaje(msj); 
 			null
 		]
+	}
+	
+	def amigosDeAmigos(UsuarioNeo user){
+		var Iterable<UsuarioNeo> amigosMios = this.amigos(user)
+		var Integer i = amigosMios.length
+		var List<UsuarioNeo> res
+		while(amigosMios.length> 0){
+			res.add(this.amigos(amigosMios.get(i)))
+			i --
+		}
 	}
 }
