@@ -14,6 +14,8 @@ class RedSocialServiceTest {
 	UsuarioNeo Juan
 	UsuarioNeo Pedro
 	UsuarioNeo Marta
+	UsuarioNeo Carlos
+	UsuarioNeo Maria
 	RedSocialService service
 	Mensaje mensaje
 	
@@ -25,6 +27,11 @@ class RedSocialServiceTest {
 			,"456")
 		Marta = new UsuarioNeo("Marta","Gonzalez","mgonzalez","mail@hotmail.com"
 			,"789")	
+		Carlos = new UsuarioNeo("Carlos","Perez","cperez","mail@hotmail.com"
+			,"34567")
+		Maria = new UsuarioNeo("Maria","Peze","mperez","mail@hotmail.com"
+			,"89718")
+		
 		
 		mensaje = new Mensaje("Hola como andas?")	
 			
@@ -32,6 +39,8 @@ class RedSocialServiceTest {
 		service.crearUsuario(Juan)
 		service.crearUsuario(Pedro)
 		service.crearUsuario(Marta)
+		service.crearUsuario(Carlos)
+		service.crearUsuario(Maria)
 		service.crearMensaje(mensaje)
 	}
 	
@@ -40,6 +49,8 @@ class RedSocialServiceTest {
         service.eliminarUsuario(Juan)
         service.eliminarUsuario(Pedro)
         service.eliminarUsuario(Marta)
+        service.eliminarUsuario(Carlos)
+		service.eliminarUsuario(Maria)
         service.eliminarMensaje(mensaje)
 	}
 	
@@ -47,7 +58,6 @@ class RedSocialServiceTest {
 	def void usuarioJuanNoPoseeAmigos(){
 		val amigos = service.amigos(Juan)
 		Assert.assertEquals(0, amigos.length)
-		//Assert.assertEquals(padres.head, padre)
 	}
 	
 	@Test
@@ -56,17 +66,42 @@ class RedSocialServiceTest {
 		service.amigoDe(Juan,Marta)
 		val amigos = service.amigos(Juan)
 		Assert.assertEquals(2, amigos.length)
-		//Assert.assertEquals(padres.head, padre)
 	}
 	
 	@Test
-	def void envioDeMensaje(){
+	def void usuarioJuanLeEnviaUnMensajeAPedro(){
 		
 		service.enviarMensaje(Juan,Pedro,mensaje)
 		val msjs = service.getMensajesRecibidos(Pedro,mensaje)
 		
 		Assert.assertEquals(1, msjs.length)
 	}
+	
+	@Test
+	def void usuarioJuanEstaRelacionadoConCuatroPersonas(){
+		
+		service.amigoDe(Juan,Pedro)
+		service.amigoDe(Juan,Marta)
+		service.amigoDe(Marta,Maria)
+		service.amigoDe(Pedro,Carlos)
+		
+		val res = service.amigosDeAmigos(Juan)
+		
+		Assert.assertEquals(res.length, 4)
+	}
+	
+	@Test
+	def void usuarioCarlosNoEstaRelacionadoConNingunaPersona(){
+		
+		service.amigoDe(Juan,Pedro)
+		service.amigoDe(Juan,Marta)
+		service.amigoDe(Marta,Maria)
+		
+		val res = service.amigosDeAmigos(Carlos)
+		
+		Assert.assertEquals(res.length, 0)
+	}
+	
 	
 	
 }

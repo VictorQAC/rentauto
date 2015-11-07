@@ -13,6 +13,8 @@ import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.UsuarioNeo
 import ar.edu.unq.epers.model.EnvioDeMensaje
 import ar.edu.unq.epers.model.Mensaje
+import org.neo4j.graphdb.traversal.TraversalDescription
+import org.neo4j.graphdb.traversal.Evaluators
 
 class RedSocialHome {
 	GraphDatabaseService graph
@@ -128,6 +130,16 @@ class RedSocialHome {
 		val nodo = this.getNodoMensaje(msj)
 		nodo.relationships.forEach[delete]
 		nodo.delete
+	}
+	
+	def obtenerAmigosDeAmigos(UsuarioNeo user) {
+		var node = getNodo(user)
+		var TraversalDescription traversalDescription = this.graph.traversalDescription()
+            .depthFirst()
+            .relationships(TipoDeAmistad.AMIGO, Direction.OUTGOING)
+            .evaluator(Evaluators.excludeStartPosition)
+
+    	traversalDescription.traverse(node).nodes().map[toUsuario].toSet;
 	}
 	
 }

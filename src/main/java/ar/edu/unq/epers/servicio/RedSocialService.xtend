@@ -33,7 +33,6 @@ class RedSocialService {
 		GraphServiceRunner::run[
 			val home = createHome(it);
 			home.relacionar(user1, user2, TipoDeAmistad.AMIGO)
-			//home.relacionar(user2, user1, TipoDeAmistad.AMIGO)
 		]
 	}
 	
@@ -76,12 +75,8 @@ class RedSocialService {
 	}
 	
 	def amigosDeAmigos(UsuarioNeo user){
-		var Iterable<UsuarioNeo> amigosMios = this.amigos(user)
-		var Integer i = amigosMios.length
-		var List<UsuarioNeo> res
-		while(amigosMios.length> 0){
-			res.add(this.amigos(amigosMios.get(i)))
-			i --
-		}
+		GraphServiceRunner::run[
+			createHome(it).obtenerAmigosDeAmigos(user)
+		]
 	}
 }
