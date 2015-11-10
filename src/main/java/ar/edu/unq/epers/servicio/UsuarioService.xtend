@@ -4,8 +4,15 @@ import ar.edu.unq.epers.home.SessionManager
 import ar.edu.unq.epers.home.UsuarioHomeH
 import java.sql.Date
 import ar.edu.unq.epers.model.Usuario
+import ar.edu.unq.epers.model.Visibilidad
+import ar.edu.unq.epers.model.Clasificacion
+import ar.edu.unq.epers.model.Calificacion
+import ar.edu.unq.epers.home.SistemMongoDB
+import ar.edu.unq.epers.home.Collection
 
 class UsuarioService {
+	
+	var Collection<Calificacion> calificaciones = SistemMongoDB.instance().collection(Calificacion)
 	
 	def consultarUsuario(int id_usuario){
 	       
@@ -33,4 +40,10 @@ class UsuarioService {
       ])
 	}
 	
+	def calificarAuto(Clasificacion clasificacion, Visibilidad visibilidad,String comentario,Integer idAuto,String idUsuario){
+		
+		var Calificacion nuevaCalificacion = new  Calificacion (clasificacion,comentario,visibilidad,idAuto,idUsuario)
+		calificaciones.insert(nuevaCalificacion)
+		
+	}
 }
