@@ -43,6 +43,16 @@ class RedSocialService {
 		]
 	}
 	
+	def Boolean sonAmigos(UsuarioNeo user,UsuarioNeo user2) {
+		GraphServiceRunner::run[
+			val home = createHome(it)
+			val amigos = home.getAmigos(user)
+			
+			return amigos.contains(user2)
+		]
+	}
+	
+	
 	def enviarMensaje(UsuarioNeo remitente,UsuarioNeo destinatario,Mensaje msj){
 		GraphServiceRunner::run[
 			val home = createHome(it);

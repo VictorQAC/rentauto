@@ -10,7 +10,20 @@ class UsuarioNeo {
 	var String password
 	var String email
 
+	override equals(Object obj) {
+		if (obj === this) {
+			return true;
+		}
+		if (obj instanceof UsuarioNeo) {
+			val other = obj as UsuarioNeo
+			return this.idNombre == other.idNombre;	
+		}
+		return false;
+	}
 
+	override hashCode() {
+		return this.idNombre.hashCode
+	}
 	
 	 new(){}
 	 

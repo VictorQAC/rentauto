@@ -27,5 +27,14 @@ class Calificacion {
     	this.idAuto = idAuto
     	this.idUsuario = idUsuario
     }
+	
+	def esPublica() {
+		return this.visibilidad == Visibilidad.PUBLICO
+	}
+	
+	def soloAmigos() {
+		return this.visibilidad == Visibilidad.SOLOAMIGOS
+	}
+	
 }
 

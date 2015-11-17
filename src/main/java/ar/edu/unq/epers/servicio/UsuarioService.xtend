@@ -9,6 +9,12 @@ import ar.edu.unq.epers.model.Clasificacion
 import ar.edu.unq.epers.model.Calificacion
 import ar.edu.unq.epers.home.SistemMongoDB
 import ar.edu.unq.epers.home.Collection
+import ar.edu.unq.epers.model.UsuarioNeo
+import ar.edu.unq.epers.home.RedSocialHome
+import org.neo4j.graphdb.GraphDatabaseService
+import org.mongojack.DBQuery
+import java.util.List
+import org.mongojack.DBCursor
 
 class UsuarioService {
 	
@@ -49,6 +55,20 @@ class UsuarioService {
 	
 	def getMongoCollection() {
 		calificaciones.getMongoCollection()
+	
+	}
+
+	
+	def List<Calificacion> verPerfilDe(UsuarioNeo user, UsuarioNeo user2){
+		var RedSocialService rs = new RedSocialService()
+		var query = DBQuery.is("idUsuario",user2.idNombre)
+		if(rs.sonAmigos(user,user2)){
+			query.and(DBQuery.in("visibilidad", #[Visibilidad.SOLOAMIGOS, Visibilidad.PUBLICO]))
+			
+		}else{
+			query.and(DBQuery.is("visibilidad",Visibilidad.PUBLICO))
+		}
+		return this.getMongoCollection().find(query).iterator.toList
 	}
 	
 }

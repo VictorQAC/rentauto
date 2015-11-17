@@ -68,7 +68,7 @@ class RedSocialHome {
 	def getAmigos(UsuarioNeo user) {
 		
 		val nodoUsuario = this.getNodo(user)
-		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeAmistad.AMIGO, Direction.OUTGOING)
+		val nodoAmigos = this.nodosRelacionados(nodoUsuario, TipoDeAmistad.AMIGO, Direction.BOTH)
 		nodoAmigos.map[toUsuario].toSet
 		
 	}
@@ -77,16 +77,13 @@ class RedSocialHome {
 	
 	private def toUsuario(Node nodo) {
 		new UsuarioNeo => [
-			//idUsuario = nodo.getProperty("idUsuario") as Integer
+			
 			nombre = nodo.getProperty("nombre") as String
 			apellido = nodo.getProperty("apellido") as String
 			idNombre = nodo.getProperty("idNombre") as String
 			password = nodo.getProperty("password") as String
 			email = nodo.getProperty("email") as String
-			//fechaDeNacimiento = nodo.getProperty("fechaDeNacimiento") as Date
-			//codigoDeValidacion = nodo.getProperty("codigoDeValidacion") as String
-			//estadoDeValidacion = nodo.getProperty("estadoDeValidacion") as Boolean
-			//reservas = nodo.getProperty("reservas") as List<Reserva>
+		
 		]
 	}
 	
