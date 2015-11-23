@@ -81,7 +81,7 @@ class RedSocialServiceTest {
 	def void usuarioJuanEstaRelacionadoConCuatroPersonas(){
 		
 		service.amigoDe(Juan,Pedro)
-		service.amigoDe(Juan,Marta)
+		service.amigoDe(Marta,Juan)
 		service.amigoDe(Marta,Maria)
 		service.amigoDe(Pedro,Carlos)
 		

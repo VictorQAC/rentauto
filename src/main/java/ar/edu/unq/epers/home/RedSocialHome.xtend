@@ -59,6 +59,7 @@ class RedSocialHome {
 		val nodo1 = this.getNodo(user1);
 		val nodo2 = this.getNodo(user2);
 		nodo1.createRelationshipTo(nodo2, amistad);
+		nodo2.createRelationshipTo(nodo1, amistad);
 	}
 	
 	protected def nodosRelacionados(Node nodo, RelationshipType tipo, Direction direccion) {
