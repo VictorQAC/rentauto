@@ -4,7 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.mongojack.ObjectId
 
-@Accessors
+@Accessors 
 class Calificacion {
 	
 	Clasificacion clasificacion
