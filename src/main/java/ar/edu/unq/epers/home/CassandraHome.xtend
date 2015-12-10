@@ -49,8 +49,13 @@ class CassandraHome {
 		if(busqueda == null){
 			
 			val AutoService autoService = new AutoService()
+			val autos = autoService.autosDisponibles(ubicacion,dia)
 			
-			return autoService.autosDisponibles(ubicacion,dia)
+			val patentes = autoService.obtenerPatentes(autos)
+			
+			val AutosDisponibles busqueda1 = this.crearBusqueda(patentes,dia.toString,ubicacion.nombre)
+			
+			return busqueda1
 		}
 		else{
 			return busqueda
@@ -65,24 +70,24 @@ class CassandraHome {
 		return mapper.get(dia,ubicacion)
 	}
 	
-	def convertirAutos(Iterable<Auto> autos){
+	def AutosDisponibles crearBusqueda(List<String> patentes,String  dia1, String ubic){
 		
-	 var List<AutoCache> autosCache 
-	 var int i = autos.size
+       var List<AutoCache> autosCache
 	 
-	 while(i >=0){
+	 for(var i = patentes.size;i<=0;i--){
+	 	  
+	 	var patenteAutoCache = patentes.get(i) 
 	 	
-	 	var autoCache = new Autocache =>[
-	 		
-	 		autos.get(i).patente
-	 		
-	 		
-	 	]
+	 	var autoCache = new AutoCache(patenteAutoCache)
 	 	
-	 	autosCache.add(autos.(lenght))
+	 	
+	 	autosCache.add(autoCache)
 	 	
 	 }	
-		
-	}
+	 
+	 var AutosDisponibles autosDispon = new AutosDisponibles(dia1,ubic,autosCache)
+     
+     return autosDispon 
+    } 
 	
 }

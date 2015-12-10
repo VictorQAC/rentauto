@@ -12,8 +12,13 @@ import com.datastax.driver.mapping.annotations.FrozenValue
 @EqualsHashCode
 @UDT(keyspace = "simplex", name = "autoCache")
 class AutoCache {
+	
 	String patente
 	
+	new(String patente){
+		
+		this.patente = patente
+	}
 }
 
 @Accessors
@@ -25,4 +30,11 @@ class AutosDisponibles {
 	String ubicacion
 	@FrozenValue
 	List<AutoCache> autos
+	
+	new(String dia, String ubicacion, List<AutoCache> autos){
+		
+		this.dia = dia
+		this.ubicacion = ubicacion
+		this.autos = autos
+	}
 }

@@ -65,4 +65,15 @@ class AutoService {
 		this.persistirAuto(autoActualizado)
 	}
 	
+	def List<String> obtenerPatentes(Iterable<Auto> autos){
+		
+		var List<String> patentes 
+		
+		
+		for(var i=0;i<= autos.size;i++){
+			
+		   patentes.add(autos.get(i).patente)
+		}
+		return patentes
+	}
 }
