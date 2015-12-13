@@ -15,10 +15,14 @@ class AutoCache {
 	
 	String patente
 	
+	new() {
+	}
+	
 	new(String patente){
 		
 		this.patente = patente
 	}
+	
 }
 
 @Accessors
@@ -31,10 +35,15 @@ class AutosDisponibles {
 	@FrozenValue
 	List<AutoCache> autos
 	
+	new() {
+		
+	}
+	
 	new(String dia, String ubicacion, List<AutoCache> autos){
 		
 		this.dia = dia
 		this.ubicacion = ubicacion
 		this.autos = autos
 	}
+	
 }

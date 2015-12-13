@@ -62,31 +62,27 @@ class ModelTest {
 	def void crearBusqueda() {
 		autoCache1 = new AutoCache => [
 			patente = "abc123"
-			ubicacionInicial = "tandil"
 			
 		]
 
 		autoCache2 = new AutoCache => [
 			patente = "abc456"
-			ubicacionInicial = "azul"
+		
 			
 		]
 
 		autoCache3 = new AutoCache => [
 			patente = "abc789"
-			ubicacionInicial = "tandil"
 			
 		]
 
 		autoCache4 = new AutoCache => [
 			patente = "def123"
-			ubicacionInicial = "azul"
 			
 		]
 
 		autoCache5 = new AutoCache => [
 			patente = "def456"
-			ubicacionInicial = "tandil"
 			
 		]
 
@@ -114,7 +110,8 @@ class ModelTest {
 		Assert.assertEquals(busqueda.ubicacion, "tandil")
 		Assert.assertEquals(busqueda.dia, "10/05/2015")
 		Assert.assertTrue(busqueda.autos.containsAll(#[autoCache1, autoCache3, autoCache5]))
+		Assert.assertEquals(busqueda.autos.length,3)
 	}
 	
-	}
+}
 	
