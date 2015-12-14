@@ -11,6 +11,7 @@ import java.util.Date
 import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.model.AutoCache
 import java.util.List
+import java.util.ArrayList
 
 class CassandraHome {
 	
@@ -66,7 +67,7 @@ class CassandraHome {
 			return this.buscarAutos(dia.toString,ubicacion.nombre)
 		}
 		else{
-			return busqueda
+			return busqueda 
 		}
 		
 		
@@ -80,18 +81,20 @@ class CassandraHome {
 	
 	def AutosDisponibles crearBusqueda(List<String> patentes,String  dia1, String ubic){
 		
-       var List<AutoCache> autosCache
-	 //Recorro la lista de patentes para crear con cada patente un AutoCache
-	 for(var i = patentes.size;i<=0;i--){
-	 	  
-	 	var patenteAutoCache = patentes.get(i) 
-	 	//Creo un nuevo AutoCache
-	 	var autoCache = new AutoCache(patenteAutoCache)
+       var List<AutoCache> autosCache = new ArrayList<AutoCache>()
+	
+//	 }
+		var i = 0
+		while(i<patentes.size){
+			var patenteAutoCache = patentes.get(i) 
+	 		//Creo un nuevo AutoCache
+	 		var autoCache = new AutoCache(patenteAutoCache)
 	 	
-	 	//Lo guardo en la lista resultado
-	 	autosCache.add(autoCache)
-	 	
-	 }	
+	 		//Lo guardo en la lista resultado
+	 		autosCache.add(autoCache)
+	 		i++
+		}
+	
 	 //Creo la tabla AutosDisponibles con la lista de autosCache y la devuelvo
 	 var AutosDisponibles autosDispon = new AutosDisponibles(dia1,ubic,autosCache)
      

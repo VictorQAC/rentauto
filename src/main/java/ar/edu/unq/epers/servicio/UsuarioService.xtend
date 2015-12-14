@@ -2,7 +2,7 @@ package ar.edu.unq.epers.servicio
 
 import ar.edu.unq.epers.home.SessionManager
 import ar.edu.unq.epers.home.UsuarioHomeH
-import java.sql.Date
+import java.util.Date
 import ar.edu.unq.epers.model.Usuario
 import ar.edu.unq.epers.model.Visibilidad
 import ar.edu.unq.epers.model.Clasificacion

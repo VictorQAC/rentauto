@@ -8,6 +8,7 @@ import ar.edu.unq.epers.model.Auto
 import java.util.List
 import java.util.Date
 import ar.edu.unq.epers.model.Reserva
+import java.util.ArrayList
 
 class AutoService {
 	
@@ -67,13 +68,20 @@ class AutoService {
 	
 	def List<String> obtenerPatentes(Iterable<Auto> autos){
 		
-		var aut = autos as List<Auto>
+		var aut = autos 
 		
-		var List<String> patentes
+		var List<String> patentes = new ArrayList<String>()
+		var i = 0
 		
-		for(var i=0;i < aut.size;i++){
+		//for(var i=0;i < aut.size;i++){
 			
-		   patentes.add((aut.get(i)).getPatente())
+		  // patentes.add((aut.get(i)).getPatente())
+		//}
+		while(i < autos.length){
+			if(aut.get(i) != null){
+				patentes.add((aut.get(i)).getPatente())
+				i++
+			}
 		}
 		return patentes
 	}

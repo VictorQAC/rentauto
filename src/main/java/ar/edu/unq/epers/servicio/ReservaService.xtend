@@ -15,6 +15,8 @@ class ReservaService {
 	var AutoService autoService = new AutoService()
 	var UsuarioService usuarioService = new UsuarioService()
 	
+	new(){}
+	
 	def consultarReserva(int numeroSolicitud){
 	       
 	       SessionManager.runInSession([
