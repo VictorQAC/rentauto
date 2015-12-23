@@ -45,7 +45,7 @@ class UsuarioServiceMongoTest {
 	}
 	
 	@Test
-	def void insertCalificacion(){
+	def void insertCalificacionTest(){
 		
 		userService.calificarAuto(Clasificacion.EXCELENTE,Visibilidad.PUBLICO,
 								"Alta nave",idAuto,Toreto.idNombre)

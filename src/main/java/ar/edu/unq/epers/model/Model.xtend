@@ -13,7 +13,7 @@ import com.datastax.driver.mapping.annotations.FrozenValue
 @UDT(keyspace = "simplex", name = "autoCache")
 class AutoCache {
 	String patente
-	String ubicacionInicial
+	
 }
 
 @Accessors
