@@ -41,21 +41,29 @@ class CassandraHome {
 		mapper = new MappingManager(session).mapper(AutosDisponibles);
 	}
 	
+	def close(){
+		
+		this.session.execute("DROP KEYSPACE IF EXISTS simplex");
+		this.cluster.close();
+	}
 	def autosDisponiblesPara(Date dia, Ubicacion ubicacion){
 		
 		this.connect()
 		
-		val busqueda =  mapper.get(dia.toString,ubicacion.nombre)
+		val busqueda =  this.buscarAutos(dia.toString,ubicacion.nombre)
 		if(busqueda == null){
-			
+			// Consuto en Hibernate los autos disponibles para ubicacion y dia
 			val AutoService autoService = new AutoService()
 			val autos = autoService.autosDisponibles(ubicacion,dia)
 			
-			val patentes = autoService.obtenerPatentes(autos)
-			
+			//Obtengo las patentes de los autos disponibles
+			val List<String> patentes = autoService.obtenerPatentes(autos)
+			// Utilizo las patentes para crear una busqueda de AutoCache
 			val AutosDisponibles busqueda1 = this.crearBusqueda(patentes,dia.toString,ubicacion.nombre)
 			
-			return busqueda1
+			mapper.save(busqueda1)
+			
+			return this.buscarAutos(dia.toString,ubicacion.nombre)
 		}
 		else{
 			return busqueda
@@ -73,18 +81,18 @@ class CassandraHome {
 	def AutosDisponibles crearBusqueda(List<String> patentes,String  dia1, String ubic){
 		
        var List<AutoCache> autosCache
-	 
+	 //Recorro la lista de patentes para crear con cada patente un AutoCache
 	 for(var i = patentes.size;i<=0;i--){
 	 	  
 	 	var patenteAutoCache = patentes.get(i) 
-	 	
+	 	//Creo un nuevo AutoCache
 	 	var autoCache = new AutoCache(patenteAutoCache)
 	 	
-	 	
+	 	//Lo guardo en la lista resultado
 	 	autosCache.add(autoCache)
 	 	
 	 }	
-	 
+	 //Creo la tabla AutosDisponibles con la lista de autosCache y la devuelvo
 	 var AutosDisponibles autosDispon = new AutosDisponibles(dia1,ubic,autosCache)
      
      return autosDispon 

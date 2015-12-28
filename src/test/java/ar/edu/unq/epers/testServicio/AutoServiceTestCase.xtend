@@ -90,4 +90,12 @@ class AutoServiceTestCase {
 
 		Assert.assertEquals(autServ.autosPosibles(fecha3,fecha4,retiro, retiro,cat1).size,2)
   	}
+  	
+  	@Test
+  	def void obtenerPatentesTest(){
+  		
+  		var autos = autServ.autosDisponibles(retiro,fecha2)
+  		Assert.assertEquals(1,autServ.obtenerPatentes(autos).size)
+  	}
+ 
 }

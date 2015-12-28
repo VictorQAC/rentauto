@@ -67,12 +67,13 @@ class AutoService {
 	
 	def List<String> obtenerPatentes(Iterable<Auto> autos){
 		
-		var List<String> patentes 
+		var aut = autos as List<Auto>
 		
+		var List<String> patentes
 		
-		for(var i=0;i<= autos.size;i++){
+		for(var i=0;i < aut.size;i++){
 			
-		   patentes.add(autos.get(i).patente)
+		   patentes.add((aut.get(i)).getPatente())
 		}
 		return patentes
 	}
